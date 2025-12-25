@@ -9,6 +9,7 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr); /* 7등분 */
     width: 100%;
+    margin-bottom: 30px;
 }
 
 .CalendarBoard .days-wrapper {
@@ -16,7 +17,6 @@
     color: var(--text-gray);
     font-size: 16px;
     gap: 10px;
-    margin-bottom: 30px;
 }
 
 .CalendarBoard .calendar-grid {

@@ -1,0 +1,25 @@
+.DiaryPreview {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: var(--bg-gray-100);
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.DiaryPreview .header-wrapper {
+    color: var(--text-black);
+    font-size: 20px;
+}
+
+.DiaryPreview .content-wrapper {
+    flex: 1;
+    width: 100%;
+    background-image: linear-gradient(#e7ecee 2px, transparent 1px);
+    background-size: 100% 32px;
+    background-repeat: repeat;
+
+    line-height: 2;
+    padding: 36px 0px;
+    color: var(--text-icy-gray);
+}
