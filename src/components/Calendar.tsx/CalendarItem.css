@@ -1,0 +1,21 @@
+.CalendarItem {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: var(--bg-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+}
+
+.CalendarItem > p {
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-icy-gray);
+    text-align: center;
+    font-family: 'NotoSansKR-ExtraBold';
+    line-height: normal;
+    display: inline-block;
+    transform: translateY(-2px);
+}

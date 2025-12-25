@@ -1,0 +1,31 @@
+.CalendarHeader {
+    display: flex;
+    height: 60px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.CalendarHeader .select-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.CalendarHeader .select-wrapper > p {
+    font-size: 22px;
+    font-family: 'NotoSansKR-ExtraBold';
+}
+
+.CalendarHeader button {
+    font-size: 16px;
+    padding: 8px 16px;
+    background: var(--bg-gray);
+    border: none;
+    border-radius: 100px;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}

@@ -1,0 +1,48 @@
+@font-face {
+    font-family: 'MemomentKkukkukk';
+    src: url('/fonts/MemomentKkukkukk.ttf');
+}
+
+@font-face {
+    font-family: 'NotoSansKR-ExtraBold';
+    src: url('/fonts/NotoSansKR-ExtraBold.ttf');
+}
+
+body * {
+    font-family: 'MemomentKkukkukk';
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: fixed;
+}
+
+#root {
+    width: 100%;
+    height: 100vh;
+    padding: 15px;
+
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --text-gray: #bbbcc0;
+    --text-icy-gray: #989fac;
+
+    --bg-black: #000000;
+    --bg-gray: #eff0f2;
+}
