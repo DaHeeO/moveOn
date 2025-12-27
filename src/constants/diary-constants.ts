@@ -6,7 +6,7 @@ export interface DiaryData {
     weight?: number;
 }
 
-export const diaryTempData: DiaryData[] = [
+export const DIARY_TEMP_DATA: DiaryData[] = [
     { id: 1, date: new Date('2025-12-01').getTime(), feelingId: 1, content: '12월 첫 시작 연말을 잘 마무래 해보기!' },
     {
         id: 2,

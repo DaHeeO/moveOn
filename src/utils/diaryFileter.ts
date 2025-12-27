@@ -1,4 +1,4 @@
-import type { DiaryData } from '../datas/calendarData';
+import type { DiaryData } from '../constants/diary-constants';
 
 /**
  *
