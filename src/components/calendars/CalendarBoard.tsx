@@ -12,12 +12,12 @@ const CalendarBoard = () => {
         <div className="CalendarBoard">
             <div className="days-wrapper">
                 {daysOfWeek.map((day) => {
-                    return <div>{day}</div>;
+                    return <div key={day}>{day}</div>;
                 })}
             </div>
             <div className="calendar-grid">
                 {daysrender.map((day) => {
-                    return <CalendarItem day={day + 1} />;
+                    return <CalendarItem key={day} day={day + 1} />;
                 })}
             </div>
         </div>
