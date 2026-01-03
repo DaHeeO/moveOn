@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import ModalPortal from '../components/common/ModalPortal';
+
+export const ModalWrapper = ({ isOpen, children }: { isOpen: boolean; children: React.ReactNode }) => {
+    return isOpen ? <ModalPortal>{children}</ModalPortal> : null;
+};
 
 export const useModal = () => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const open = () => setIsOpen(true);
-    const close = () => setIsOpen(false);
+    const open = useCallback(() => setIsOpen(true), []);
+    const close = useCallback(() => setIsOpen(false), []);
 
-    const ModalWrapper = ({ children }: { children: React.ReactNode }) =>
-        isOpen ? <ModalPortal>{children}</ModalPortal> : null;
-
-    return { isOpen, open, close, ModalWrapper };
+    return { isOpen, open, close };
 };

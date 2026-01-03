@@ -13,8 +13,6 @@ const Calendar = () => {
         return getMonthlyData(data, pivotDate);
     }, [pivotDate]);
 
-    console.log(monthlyDate);
-
     const updatePivotDate = (targetYear: number, targetMonth: number) => {
         const lastDayOfTargetMonth = new Date(targetYear, targetMonth + 1, 0).getDate();
 
