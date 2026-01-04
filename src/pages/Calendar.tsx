@@ -23,7 +23,7 @@ const Calendar = () => {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', flex: 1, width: '100%' }}>
             <CalendarHeader pivotDate={pivotDate} updatePivotDate={updatePivotDate} />
-            <CalendarBoard />
+            <CalendarBoard pivotDate={pivotDate} />
             <DiaryPreview />
         </div>
     );

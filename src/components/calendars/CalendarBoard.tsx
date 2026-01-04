@@ -1,10 +1,30 @@
 import './CalendarBoard.css';
 import CalendarItem from './CalendarItem';
 
-const CalendarBoard = () => {
+interface Props {
+    pivotDate: Date;
+}
+
+const CalendarBoard = ({ pivotDate }: Props) => {
     const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+
+    const year = pivotDate.getFullYear();
+    const month = pivotDate.getMonth();
+
+    // 0: sun, 1: mon, ...
+    const firstDayOfMonth = new Date(year, month, 1).getDay();
+
+    // 이번달의 마지막 날
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
     const daysrender = [];
-    for (let i = 0; i < 31; i++) {
+
+    // 캘린더 앞날짜 의미없는거 추가
+    for (let i = -firstDayOfMonth + 1; i <= 0; i++) {
+        daysrender.push(i);
+    }
+
+    for (let i = 1; i <= daysInMonth; i++) {
         daysrender.push(i);
     }
 
@@ -17,7 +37,7 @@ const CalendarBoard = () => {
             </div>
             <div className="calendar-grid">
                 {daysrender.map((day) => {
-                    return <CalendarItem key={day} day={day + 1} />;
+                    return <CalendarItem key={day} day={day} />;
                 })}
             </div>
         </div>
