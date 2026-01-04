@@ -7,42 +7,42 @@ import ChevronDown from '../../assets/ChevronDown';
 import ChevronRight from '../../assets/ChevronRight';
 import X from '../../assets/X';
 import ChevronLeft from '../../assets/ChevronLeft';
+import { getFormattedMonth } from '../../utils/diaryFileter';
 
 interface Props {
-    pivotDate: Date;
-    updatePivotDate: (year: number, month: number) => void;
+    todayRef: Date;
+    viewMonth: string;
+    updateViewMonth: (viewMonth: string) => void;
 }
 
 const MONTHS_OF_YEAR = Array.from({ length: 12 }, (_, i) => i + 1);
 
-const CalendarHeader = ({ pivotDate, updatePivotDate }: Props) => {
-    const now = new Date();
+const CalendarHeader = ({ todayRef, viewMonth, updateViewMonth }: Props) => {
     const { isOpen, open, close } = useModal();
 
-    const [viewYear, setViewYear] = useState(pivotDate.getFullYear());
-
-    const isCurrentMonth = pivotDate.getMonth() === now.getMonth() && pivotDate.getFullYear() === now.getFullYear();
+    const [currentYear, currentMonth] = viewMonth.split('-').map(Number);
+    const [viewYear, setViewYear] = useState(currentYear);
+    const isCurrentMonth = currentMonth === todayRef.getMonth() + 1 && currentYear === todayRef.getFullYear();
 
     const handleModalOpen = () => {
-        setViewYear(pivotDate.getFullYear());
+        setViewYear(currentYear);
         open();
     };
 
     const handleModalClose = () => {
         close();
-        setViewYear(pivotDate.getFullYear());
+        setViewYear(currentYear);
     };
 
     const setToday = () => {
         if (isCurrentMonth) return;
-        updatePivotDate(now.getFullYear(), now.getMonth());
-        setViewYear(now.getFullYear());
+        updateViewMonth(getFormattedMonth(todayRef));
     };
 
     return (
         <div className="CalendarHeader">
             <div className="select-wrapper" onClick={handleModalOpen}>
-                <p>{`${pivotDate.getFullYear()}년 ${pivotDate.getMonth() + 1}월`}</p>
+                <p>{`${currentYear}년 ${currentMonth}월`}</p>
                 <ChevronDown />
             </div>
             <button onClick={setToday} className={`today-btn ${isCurrentMonth ? '' : 'highlight'}`}>
@@ -83,13 +83,11 @@ const CalendarHeader = ({ pivotDate, updatePivotDate }: Props) => {
                                 return (
                                     <div
                                         className={`month-item ${
-                                            pivotDate.getMonth() + 1 === month && viewYear === pivotDate.getFullYear()
-                                                ? 'active'
-                                                : ''
+                                            currentMonth === month && currentYear === viewYear ? 'active' : ''
                                         }`}
                                         key={month}
                                         onClick={() => {
-                                            updatePivotDate(viewYear, month - 1);
+                                            updateViewMonth(getFormattedMonth(new Date(viewYear, month - 1)));
                                             close();
                                         }}
                                     >

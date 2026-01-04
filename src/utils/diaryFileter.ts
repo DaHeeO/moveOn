@@ -1,17 +1,32 @@
 import type { DiaryData } from '../constants/diary-constants';
 
+export const getFormattedMonth = (date: Date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    return `${year}-${month}`;
+};
+
+/**
+ * yyyy-MM-dd string 형태로 반환
+ * @param date
+ * @returns
+ */
+export const getFormattedDate = (date: Date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+};
+
 /**
  *
  * @param data
  * @param pivotDate
  * @returns
  */
-export const getMonthlyData = (data: DiaryData[], pivotDate: Date) => {
-    const beginTime = new Date(pivotDate.getFullYear(), pivotDate.getMonth(), 1, 0, 0, 0).getTime();
-    const endTime = new Date(pivotDate.getFullYear(), pivotDate.getMonth() + 1, 0, 23, 59, 59).getTime();
-
+export const getMonthlyData = (data: DiaryData[], viewMonth: string) => {
     return data.filter((item) => {
-        return item.date >= beginTime && item.date <= endTime;
+        return item.date.startsWith(viewMonth);
     });
 };
 
@@ -22,9 +37,9 @@ export const getMonthlyData = (data: DiaryData[], pivotDate: Date) => {
  * @returns
  */
 export const getSelectedDiary = (monthlyData: DiaryData[], selectedDate: Date) => {
-    const targetDay = selectedDate.getDate();
+    const targetDay = getFormattedDate(selectedDate);
 
     return monthlyData.find((item) => {
-        return new Date(item.date).getDate() === targetDay;
+        return item.date === targetDay;
     });
 };

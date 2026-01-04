@@ -2,20 +2,20 @@ import './CalendarBoard.css';
 import CalendarItem from './CalendarItem';
 
 interface Props {
-    pivotDate: Date;
+    viewMonth: string;
+    todayRef: Date;
 }
 
-const CalendarBoard = ({ pivotDate }: Props) => {
+const CalendarBoard = ({ viewMonth, todayRef }: Props) => {
     const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 
-    const year = pivotDate.getFullYear();
-    const month = pivotDate.getMonth();
+    const [year, month] = viewMonth.split('-').map(Number);
 
     // 0: sun, 1: mon, ...
-    const firstDayOfMonth = new Date(year, month, 1).getDay();
+    const firstDayOfMonth = new Date(year, month - 1, 1).getDay();
 
     // 이번달의 마지막 날
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInMonth = new Date(year, month, 0).getDate();
 
     const daysrender = [];
 
