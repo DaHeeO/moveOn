@@ -1,10 +1,12 @@
-import { useState } from 'react';
-import ChevronDown from '../../assets/ChevronDown';
-import ChevronLeft from '../../assets/chevronLeft';
-import ChevronRight from '../../assets/chevronRight';
-import X from '../../assets/x';
-import { ModalWrapper, useModal } from '../../hooks/useModal';
 import './CalendarHeader.css';
+import { useState } from 'react';
+import { ModalWrapper, useModal } from '../../hooks/useModal';
+
+// icon
+import ChevronDown from '../../assets/ChevronDown';
+import ChevronRight from '../../assets/ChevronRight';
+import X from '../../assets/X';
+import ChevronLeft from '../../assets/ChevronLeft';
 
 interface Props {
     pivotDate: Date;
@@ -14,9 +16,12 @@ interface Props {
 const MONTHS_OF_YEAR = Array.from({ length: 12 }, (_, i) => i + 1);
 
 const CalendarHeader = ({ pivotDate, updatePivotDate }: Props) => {
+    const now = new Date();
     const { isOpen, open, close } = useModal();
 
     const [viewYear, setViewYear] = useState(pivotDate.getFullYear());
+
+    const isCurrentMonth = pivotDate.getMonth() === now.getMonth() && pivotDate.getFullYear() === now.getFullYear();
 
     const handleModalOpen = () => {
         setViewYear(pivotDate.getFullYear());
@@ -29,7 +34,7 @@ const CalendarHeader = ({ pivotDate, updatePivotDate }: Props) => {
     };
 
     const setToday = () => {
-        const now = new Date();
+        if (isCurrentMonth) return;
         updatePivotDate(now.getFullYear(), now.getMonth());
         setViewYear(now.getFullYear());
     };
@@ -40,7 +45,9 @@ const CalendarHeader = ({ pivotDate, updatePivotDate }: Props) => {
                 <p>{`${pivotDate.getFullYear()}년 ${pivotDate.getMonth() + 1}월`}</p>
                 <ChevronDown />
             </div>
-            <button onClick={setToday}>이번달</button>
+            <button onClick={setToday} className={`today-btn ${isCurrentMonth ? '' : 'highlight'}`}>
+                이번달
+            </button>
 
             <ModalWrapper isOpen={isOpen}>
                 <div className={'bottom-sheet-overlay'} onClick={handleModalClose} />

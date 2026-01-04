@@ -18,16 +18,21 @@
     font-family: 'NotoSansKR-ExtraBold';
 }
 
-.CalendarHeader button {
+.today-btn {
     font-size: 16px;
     padding: 8px 16px;
-    background: var(--bg-gray-200);
+    background: white;
+    color: var(--text-gray);
     border: none;
     border-radius: 100px;
-    color: inherit;
     cursor: pointer;
     outline: none;
     -webkit-tap-highlight-color: transparent;
+}
+
+.today-btn.highlight {
+    background: var(--bg-gray-200);
+    color: inherit;
 }
 
 .bottom-sheet-overlay {
