@@ -1,5 +1,10 @@
 import type { DiaryData } from '../constants/diary-constants';
 
+/**
+ * yyyy-MM 형태 변환
+ * @param date
+ * @returns
+ */
 export const getFormattedMonth = (date: Date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -36,10 +41,8 @@ export const getMonthlyData = (data: DiaryData[], viewMonth: string) => {
  * @param selectedDate
  * @returns
  */
-export const getSelectedDiary = (monthlyData: DiaryData[], selectedDate: Date) => {
-    const targetDay = getFormattedDate(selectedDate);
-
+export const getSelectedDiary = (monthlyData: DiaryData[], selectedDate: string) => {
     return monthlyData.find((item) => {
-        return item.date === targetDay;
+        return item.date === selectedDate;
     });
 };

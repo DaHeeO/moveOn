@@ -2,14 +2,14 @@ import './CalendarBoard.css';
 import CalendarItem from './CalendarItem';
 
 interface Props {
-    viewMonth: string;
-    todayRef: Date;
+    pivotDate: string;
+    updatePivotDate: () => void;
 }
 
-const CalendarBoard = ({ viewMonth, todayRef }: Props) => {
+const CalendarBoard = ({ pivotDate, updatePivotDate }: Props) => {
     const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 
-    const [year, month] = viewMonth.split('-').map(Number);
+    const [year, month, day] = pivotDate.split('-').map(Number);
 
     // 0: sun, 1: mon, ...
     const firstDayOfMonth = new Date(year, month - 1, 1).getDay();
