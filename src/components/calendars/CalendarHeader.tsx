@@ -7,22 +7,22 @@ import ChevronDown from '../../assets/ChevronDown';
 import ChevronRight from '../../assets/ChevronRight';
 import X from '../../assets/X';
 import ChevronLeft from '../../assets/ChevronLeft';
-import { getFormattedMonth } from '../../utils/diaryFileter';
+import { getFormattedDate, getFormattedMonth } from '../../utils/diaryFileter';
 
 interface Props {
     todayRef: Date;
-    viewMonth: string;
+    pivotDate: string;
     updateViewMonth: (viewMonth: string) => void;
 }
 
 const MONTHS_OF_YEAR = Array.from({ length: 12 }, (_, i) => i + 1);
 
-const CalendarHeader = ({ todayRef, viewMonth, updateViewMonth }: Props) => {
+const CalendarHeader = ({ todayRef, pivotDate, updateViewMonth }: Props) => {
     const { isOpen, open, close } = useModal();
-
+    const viewMonth = pivotDate.slice(0, 7);
     const [currentYear, currentMonth] = viewMonth.split('-').map(Number);
     const [viewYear, setViewYear] = useState(currentYear);
-    const isCurrentMonth = currentMonth === todayRef.getMonth() + 1 && currentYear === todayRef.getFullYear();
+    const isToday = pivotDate === getFormattedDate(todayRef);
 
     const handleModalOpen = () => {
         setViewYear(currentYear);
@@ -34,8 +34,9 @@ const CalendarHeader = ({ todayRef, viewMonth, updateViewMonth }: Props) => {
         setViewYear(currentYear);
     };
 
+    // 지금은 월만 이동하는 로직 오늘 객체로 날짜까지 변경할 수 있게
     const setToday = () => {
-        if (isCurrentMonth) return;
+        if (isToday) return;
         updateViewMonth(getFormattedMonth(todayRef));
     };
 
@@ -45,8 +46,8 @@ const CalendarHeader = ({ todayRef, viewMonth, updateViewMonth }: Props) => {
                 <p>{`${currentYear}년 ${currentMonth}월`}</p>
                 <ChevronDown />
             </div>
-            <button onClick={setToday} className={`today-btn ${isCurrentMonth ? '' : 'highlight'}`}>
-                이번달
+            <button onClick={setToday} className={`today-btn ${isToday ? '' : 'highlight'}`}>
+                오늘 선택
             </button>
 
             <ModalWrapper isOpen={isOpen}>

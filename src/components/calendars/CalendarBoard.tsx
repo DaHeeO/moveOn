@@ -3,13 +3,13 @@ import CalendarItem from './CalendarItem';
 
 interface Props {
     pivotDate: string;
-    updatePivotDate: () => void;
+    updatePivotDate: (selectedDate: number) => void;
 }
 
 const CalendarBoard = ({ pivotDate, updatePivotDate }: Props) => {
     const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 
-    const [year, month, day] = pivotDate.split('-').map(Number);
+    const [year, month, currentDate] = pivotDate.split('-').map(Number);
 
     // 0: sun, 1: mon, ...
     const firstDayOfMonth = new Date(year, month - 1, 1).getDay();
@@ -28,6 +28,11 @@ const CalendarBoard = ({ pivotDate, updatePivotDate }: Props) => {
         daysrender.push(i);
     }
 
+    const handleDateClick = (selectedDate: number) => {
+        if (selectedDate <= 0) return;
+        updatePivotDate(selectedDate);
+    };
+
     return (
         <div className="CalendarBoard">
             <div className="days-wrapper">
@@ -37,7 +42,7 @@ const CalendarBoard = ({ pivotDate, updatePivotDate }: Props) => {
             </div>
             <div className="calendar-grid">
                 {daysrender.map((day) => {
-                    return <CalendarItem key={day} day={day} />;
+                    return <CalendarItem key={day} day={day} handleDateClick={() => handleDateClick(day)} />;
                 })}
             </div>
         </div>

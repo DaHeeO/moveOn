@@ -7,7 +7,8 @@ import DiaryPreview from '../components/calendars/DiaryPreview';
 
 const Calendar = () => {
     const data = useContext(DiaryStateContext);
-    const [pivotDate, setPivotDate] = useState(getFormattedDate(new Date()));
+    // const [pivotDate, setPivotDate] = useState(getFormattedDate(new Date()));
+    const [pivotDate, setPivotDate] = useState(getFormattedDate(new Date('2026-01-31')));
     // header 부분에서 관리하는 년, 월 을 담은 viewMonth
     const viewMonth = pivotDate.slice(0, 7);
     const todayRef = useRef(new Date());
@@ -20,19 +21,26 @@ const Calendar = () => {
         return getSelectedDiary(monthlyDate, pivotDate);
     }, [pivotDate]);
 
-    // header에서 관리하는 로직
+    // CalendarHeader에서 관리하는 로직
     const updateViewMonth = (nextMonth: string) => {
-        const day = pivotDate.split('-')[2];
-        // safeday 로직 필요!!!!!!!!!!!!!!!!!
+        const [year, month] = nextMonth.split('-').map(Number);
+        const currentDate = parseInt(pivotDate.split('-')[2]);
+        const maxdayInMonth = new Date(year, month, 0).getDate();
+        console.log(maxdayInMonth);
+        const adjustedDate = currentDate > maxdayInMonth ? maxdayInMonth : currentDate;
+        const formattedDate = String(adjustedDate).padStart(2, '0');
 
-        setPivotDate(`${nextMonth}-${day}`);
+        setPivotDate(`${nextMonth}-${formattedDate}`);
     };
 
-    const updatePivotDate = () => {};
+    const updatePivotDate = (selectedDate: number) => {
+        const [year, month] = pivotDate.split('-').map(Number);
+        setPivotDate(getFormattedDate(new Date(year, month - 1, selectedDate)));
+    };
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', flex: 1, width: '100%' }}>
-            <CalendarHeader todayRef={todayRef.current} viewMonth={viewMonth} updateViewMonth={updateViewMonth} />
+            <CalendarHeader todayRef={todayRef.current} pivotDate={pivotDate} updateViewMonth={updateViewMonth} />
             <CalendarBoard pivotDate={pivotDate} updatePivotDate={updatePivotDate} />
             <DiaryPreview selectedDiary={selectedDiary} pivotDate={pivotDate} />
         </div>
