@@ -13,11 +13,12 @@ interface Props {
     todayRef: Date;
     pivotDate: string;
     updateViewMonth: (viewMonth: string) => void;
+    updateDateToToday: () => void;
 }
 
 const MONTHS_OF_YEAR = Array.from({ length: 12 }, (_, i) => i + 1);
 
-const CalendarHeader = ({ todayRef, pivotDate, updateViewMonth }: Props) => {
+const CalendarHeader = ({ todayRef, pivotDate, updateViewMonth, updateDateToToday }: Props) => {
     const { isOpen, open, close } = useModal();
     const viewMonth = pivotDate.slice(0, 7);
     const [currentYear, currentMonth] = viewMonth.split('-').map(Number);
@@ -37,7 +38,7 @@ const CalendarHeader = ({ todayRef, pivotDate, updateViewMonth }: Props) => {
     // 지금은 월만 이동하는 로직 오늘 객체로 날짜까지 변경할 수 있게
     const setToday = () => {
         if (isToday) return;
-        updateViewMonth(getFormattedMonth(todayRef));
+        updateDateToToday();
     };
 
     return (

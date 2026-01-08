@@ -21,7 +21,7 @@ const Calendar = () => {
         return getSelectedDiary(monthlyDate, pivotDate);
     }, [pivotDate]);
 
-    // CalendarHeader에서 관리하는 로직
+    // CalendarHeader에서 관리하는 로직 -> 년, 월 만 변경
     const updateViewMonth = (nextMonth: string) => {
         const [year, month] = nextMonth.split('-').map(Number);
         const currentDate = parseInt(pivotDate.split('-')[2]);
@@ -33,6 +33,10 @@ const Calendar = () => {
         setPivotDate(`${nextMonth}-${formattedDate}`);
     };
 
+    const updateDateToToday = () => {
+        setPivotDate(getFormattedDate(todayRef.current));
+    };
+
     const updatePivotDate = (selectedDate: number) => {
         const [year, month] = pivotDate.split('-').map(Number);
         setPivotDate(getFormattedDate(new Date(year, month - 1, selectedDate)));
@@ -40,7 +44,12 @@ const Calendar = () => {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', flex: 1, width: '100%' }}>
-            <CalendarHeader todayRef={todayRef.current} pivotDate={pivotDate} updateViewMonth={updateViewMonth} />
+            <CalendarHeader
+                todayRef={todayRef.current}
+                pivotDate={pivotDate}
+                updateViewMonth={updateViewMonth}
+                updateDateToToday={updateDateToToday}
+            />
             <CalendarBoard pivotDate={pivotDate} updatePivotDate={updatePivotDate} />
             <DiaryPreview selectedDiary={selectedDiary} pivotDate={pivotDate} />
         </div>
