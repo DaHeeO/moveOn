@@ -2,12 +2,22 @@ import './CalendarItem.css';
 
 interface Props {
     day: number;
+    isToday: boolean;
+    isSelected: boolean;
     handleDateClick: (day: number) => void;
 }
-const CalendarItem = ({ day, handleDateClick }: Props) => {
+const CalendarItem = ({ day, isToday, isSelected, handleDateClick }: Props) => {
+    if (day <= 0) {
+        return <div className="CalendarItem empty"></div>;
+    }
     return (
-        <div className={`CalendarItem ${day <= 0 ? 'empty' : ''}`} onClick={() => day > 0 && handleDateClick(day)}>
-            {day > 0 && <p>{day}</p>}
+        <div
+            className={`CalendarItem ${isSelected ? 'selected' : ''} ${isToday ? 'today' : ''}`}
+            onClick={() => handleDateClick(day)}
+        >
+            {isToday && <span className="today-tooltip">오늘</span>}
+
+            <p className="day-number">{day}</p>
         </div>
     );
 };

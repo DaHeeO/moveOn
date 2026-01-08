@@ -7,8 +7,7 @@ import DiaryPreview from '../components/calendars/DiaryPreview';
 
 const Calendar = () => {
     const data = useContext(DiaryStateContext);
-    // const [pivotDate, setPivotDate] = useState(getFormattedDate(new Date()));
-    const [pivotDate, setPivotDate] = useState(getFormattedDate(new Date('2026-01-31')));
+    const [pivotDate, setPivotDate] = useState(getFormattedDate(new Date()));
     // header 부분에서 관리하는 년, 월 을 담은 viewMonth
     const viewMonth = pivotDate.slice(0, 7);
     const todayRef = useRef(new Date());
@@ -26,7 +25,6 @@ const Calendar = () => {
         const [year, month] = nextMonth.split('-').map(Number);
         const currentDate = parseInt(pivotDate.split('-')[2]);
         const maxdayInMonth = new Date(year, month, 0).getDate();
-        console.log(maxdayInMonth);
         const adjustedDate = currentDate > maxdayInMonth ? maxdayInMonth : currentDate;
         const formattedDate = String(adjustedDate).padStart(2, '0');
 
@@ -50,7 +48,7 @@ const Calendar = () => {
                 updateViewMonth={updateViewMonth}
                 updateDateToToday={updateDateToToday}
             />
-            <CalendarBoard pivotDate={pivotDate} updatePivotDate={updatePivotDate} />
+            <CalendarBoard todayRef={todayRef.current} pivotDate={pivotDate} updatePivotDate={updatePivotDate} />
             <DiaryPreview selectedDiary={selectedDiary} pivotDate={pivotDate} />
         </div>
     );
