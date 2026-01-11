@@ -1,4 +1,5 @@
 .CalendarItem {
+    position: relative;
     width: 100%;
     aspect-ratio: 1/1;
     background-color: var(--bg-gray-200);
@@ -25,28 +26,36 @@
     transform: translateY(-2px);
 }
 
-.CalendarItem.selected {
-    background-color: #e0f2fe;
-    border: 2px solid #0ea5e9;
-}
-
-/* 오늘 날짜 스타일 (숫자 강조 등) */
-.CalendarItem.today .day-number {
-    color: #0ea5e9;
-    font-weight: bold;
-}
-
-/* 오늘 툴팁 스타일 */
 .today-tooltip {
-    position: relative;
-    top: 0;
-    /* left: 50%;
-    transform: translateX(-50%); */
-    background-color: #0ea5e9;
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background-color: var(--text-black);
     color: white;
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 10px;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 11px;
     white-space: nowrap;
-    z-index: 1;
+    z-index: 3;
+}
+
+.today-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 4px 4px 0 4px;
+    border-style: solid;
+    border-color: var(--text-black) transparent transparent transparent;
+}
+
+.tooltip-gray {
+    background-color: var(--text-icy-gray) !important;
+}
+
+.tooltip-gray::after {
+    border-color: var(--text-icy-gray) transparent transparent transparent !important;
 }
