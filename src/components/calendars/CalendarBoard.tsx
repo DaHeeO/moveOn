@@ -1,3 +1,4 @@
+import type { DiaryData } from '../../constants/diary-constants';
 import { getFormattedDate } from '../../utils/diaryFileter';
 import './CalendarBoard.css';
 import CalendarItem from './CalendarItem';
@@ -6,9 +7,10 @@ interface Props {
     todayRef: Date;
     pivotDate: string;
     updatePivotDate: (selectedDate: number) => void;
+    monthlyDairy: DiaryData[];
 }
 
-const CalendarBoard = ({ todayRef, pivotDate, updatePivotDate }: Props) => {
+const CalendarBoard = ({ todayRef, pivotDate, updatePivotDate, monthlyDairy }: Props) => {
     const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 
     const [year, month, currentDate] = pivotDate.split('-').map(Number);
@@ -46,10 +48,15 @@ const CalendarBoard = ({ todayRef, pivotDate, updatePivotDate }: Props) => {
             </div>
             <div className="calendar-grid">
                 {daysrender.map((day) => {
+                    const dayData = monthlyDairy.find((item) => {
+                        const itemDate = new Date(item.date);
+                        return itemDate.getDate() === day;
+                    });
                     return (
                         <CalendarItem
                             key={day}
                             day={day}
+                            feelingId={dayData?.feelingId}
                             isToday={
                                 year === todayRef.getFullYear() &&
                                 month === todayRef.getMonth() + 1 &&

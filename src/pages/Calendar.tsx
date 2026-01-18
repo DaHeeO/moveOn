@@ -12,12 +12,12 @@ const Calendar = () => {
     const viewMonth = pivotDate.slice(0, 7);
     const todayRef = useRef(new Date());
 
-    const monthlyDate = useMemo(() => {
+    const monthlyDairy = useMemo(() => {
         return getMonthlyData(data, viewMonth);
     }, [viewMonth]);
 
     const selectedDiary = useMemo(() => {
-        return getSelectedDiary(monthlyDate, pivotDate);
+        return getSelectedDiary(monthlyDairy, pivotDate);
     }, [pivotDate]);
 
     // CalendarHeader에서 관리하는 로직 -> 년, 월 만 변경
@@ -48,7 +48,12 @@ const Calendar = () => {
                 updateViewMonth={updateViewMonth}
                 updateDateToToday={updateDateToToday}
             />
-            <CalendarBoard todayRef={todayRef.current} pivotDate={pivotDate} updatePivotDate={updatePivotDate} />
+            <CalendarBoard
+                todayRef={todayRef.current}
+                pivotDate={pivotDate}
+                updatePivotDate={updatePivotDate}
+                monthlyDairy={monthlyDairy}
+            />
             <DiaryPreview selectedDiary={selectedDiary} pivotDate={pivotDate} />
         </div>
     );
