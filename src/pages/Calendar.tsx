@@ -55,6 +55,10 @@ const Calendar = () => {
                 monthlyDairy={monthlyDairy}
             />
             <DiaryPreview selectedDiary={selectedDiary} pivotDate={pivotDate} />
+            <div style={{ position: 'fixed', bottom: 0 }}>
+                <button> 일기 수정</button>
+                <button> 선택한 날짜로 이동</button>
+            </div>
         </div>
     );
 };

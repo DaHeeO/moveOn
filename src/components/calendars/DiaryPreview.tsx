@@ -20,7 +20,9 @@ const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
     if (!selectedDiary) {
         return (
             <div className="DiaryPreview empty">
-                <div className="header-wrapper">{formattedDate}</div>
+                <div className="header-wrapper">
+                    <div>{formattedDate}</div>
+                </div>
                 <div className="content-wrapper">
                     <div className="empty-wrapper">
                         <img src="../src/assets/feelingDefault.png" className="img_wrapper" />
@@ -32,7 +34,13 @@ const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
     }
     return (
         <div className="DiaryPreview">
-            <div className="header-wrapper">{formattedDate}</div>
+            <div className="header-wrapper">
+                <div>{formattedDate}</div>
+                <div className="diary-button">
+                    <div> 수정</div>
+                    <div> 삭제</div>
+                </div>
+            </div>
             <div className="content-wrapper">
                 <div className="icon-list-wrapper">
                     <img
