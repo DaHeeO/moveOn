@@ -33,7 +33,7 @@ const CalendarItem = ({ day, feelingId, isToday, isSelected, handleDateClick }: 
         <div
             className={`CalendarItem has-feeling ${isSelected ? 'selected' : ''}`}
             onClick={() => handleDateClick(day)}
-            style={{ backgroundColor: feeling.color }} // 배경색 적용
+            style={{ backgroundColor: feeling.color }}
         >
             {tooltipText && <div className={tooltipClass}>{tooltipText}</div>}
             <img src={`../src/assets/feeling${feelingId}.png`} alt={feeling.feelingName} className="emotion-img" />
