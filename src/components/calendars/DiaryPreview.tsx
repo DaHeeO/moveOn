@@ -1,4 +1,5 @@
 import type { DiaryData } from '../../constants/diary-constants';
+import { FEELING_LIST } from '../../constants/feeling-constants';
 import './DiaryPreview.css';
 
 interface Props {
@@ -14,19 +15,35 @@ const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
     const date = curDate.getDate();
     const day = DAYS[curDate.getDay()];
     const formattedDate = `${month}.${date} ${day}`;
+    const feeling = FEELING_LIST.find((it) => it.feelingId === selectedDiary?.feelingId);
 
     if (!selectedDiary) {
         return (
             <div className="DiaryPreview empty">
                 <div className="header-wrapper">{formattedDate}</div>
-                <div className="content-wrapper">작성된 일기가 없습니다.</div>
+                <div className="content-wrapper">
+                    <div className="empty-wrapper">
+                        <img src="../src/assets/feelingDefault.png" className="img_wrapper" />
+                        <p>작성된 스티커 일기가 없어요</p>
+                    </div>
+                </div>
             </div>
         );
     }
     return (
         <div className="DiaryPreview">
             <div className="header-wrapper">{formattedDate}</div>
-            <div className="content-wrapper">{selectedDiary.content}</div>
+            <div className="content-wrapper">
+                <div className="icon-list-wrapper">
+                    <img
+                        src={`../src/assets/feeling${selectedDiary.feelingId}.png`}
+                        className="icon-wrapper"
+                        style={{ backgroundColor: feeling?.color }}
+                    />
+                    {feeling?.feelingName}
+                </div>
+                <p style={{ color: 'black' }}> {selectedDiary.content}</p>
+            </div>
         </div>
     );
 };

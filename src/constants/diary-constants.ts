@@ -1,7 +1,7 @@
 export interface DiaryData {
     id: number;
     date: string;
-    feelingId?: number;
+    feelingId: number;
     content?: string;
     weight?: number;
 }
@@ -18,7 +18,8 @@ export const DIARY_TEMP_DATA: DiaryData[] = [
         id: 3,
         date: '2026-01-03',
         feelingId: 2,
-        content: '오늘은 운동 안했지롱 늦게 일어나서 나도 이제 노력안해도 일찍일어나고 싶어',
+        content:
+            '오늘은 운동 안했지롱 늦게 일어나서 나도 이제 노력안해도 일찍일어나고 싶어오늘은 운동 안했지롱 늦게 일어나서 나도 이제 노력안해도 일찍일어나고 싶어오늘은 운동 안했지롱 늦게 일어나서 나도 이제 노력안해도 일찍일어나고 싶어오늘은 운동 안했지롱 늦게 일어나서 나도 이제 노력안해도 일찍일어나고 싶어오늘은 운동 안했지롱 늦게 일어나서 나도 이제 노력안해도 일찍일어나고 싶어',
         weight: 73.2,
     },
     { id: 4, date: '2026-01-07', feelingId: 3, content: '학원에 할일은 왜케 많은겨...' },
