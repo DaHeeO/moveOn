@@ -4,6 +4,7 @@ import { getFormattedDate, getMonthlyData, getSelectedDiary } from '../utils/dia
 import CalendarBoard from '../components/calendars/CalendarBoard';
 import CalendarHeader from '../components/calendars/CalendarHeader';
 import DiaryPreview from '../components/calendars/DiaryPreview';
+import CalendarBottomSheet from '../components/calendars/CalendarBottomSheet';
 
 const Calendar = () => {
     const data = useContext(DiaryStateContext);
@@ -55,10 +56,7 @@ const Calendar = () => {
                 monthlyDairy={monthlyDairy}
             />
             <DiaryPreview selectedDiary={selectedDiary} pivotDate={pivotDate} />
-            <div style={{ position: 'fixed', bottom: 0 }}>
-                <button> 일기 수정</button>
-                <button> 선택한 날짜로 이동</button>
-            </div>
+            <CalendarBottomSheet id={selectedDiary?.id} />
         </div>
     );
 };
