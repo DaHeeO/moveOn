@@ -1,0 +1,10 @@
+.StickerWrapper {
+}
+
+.StickerWrapper > h3 {
+    font-family: 'NotoSansKR-Medium';
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+}

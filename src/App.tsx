@@ -3,6 +3,7 @@ import './App.css';
 import Calendar from './pages/Calendar';
 import { type DiaryData, DIARY_TEMP_DATA } from './constants/diary-constants';
 import { createContext } from 'react';
+import New from './pages/New';
 
 const data = DIARY_TEMP_DATA;
 
@@ -14,6 +15,7 @@ function App() {
             <DiaryStateContext.Provider value={data}>
                 <Routes>
                     <Route path="/" element={<Calendar />} />
+                    <Route path="/new" element={<New />} />
                 </Routes>
             </DiaryStateContext.Provider>
         </>
