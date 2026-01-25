@@ -44,7 +44,7 @@ const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
             <div className="content-wrapper">
                 <div className="icon-list-wrapper">
                     <img
-                        src={`../src/assets/feeling${selectedDiary.feelingId}.png`}
+                        src={`../src/assets/feeling/feeling${selectedDiary.feelingId}.png`}
                         className="icon-wrapper"
                         style={{ backgroundColor: feeling?.color }}
                     />

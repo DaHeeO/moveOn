@@ -1,10 +1,61 @@
 .StickerWrapper {
+    width: calc(100% + 30px);
+    margin: 0 -15px;
 }
 
 .StickerWrapper > h3 {
     font-family: 'NotoSansKR-Medium';
     font-size: 16px;
     margin: 0;
-    padding: 0;
+    padding: 0px 15px 20px 15px;
     font-weight: 400;
+}
+
+.StickerScrollContainer {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding: 0 15px;
+}
+
+.StickerScrollContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.StickerItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.StickerImageWrapper {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    background-color: var(--bg-gray-200);
+}
+
+.StickerImageWrapper img {
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
+}
+
+.StickerName {
+    font-family: 'NotoSansKR-Medium';
+    font-size: 14px;
+    color: var(--text-icy-gray);
+    white-space: nowrap;
+}
+
+.StickerName.selected {
+    color: var(--text-black);
 }
