@@ -2,21 +2,75 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Calendar from './pages/Calendar';
 import { type DiaryData, DIARY_TEMP_DATA } from './constants/diary-constants';
-import { createContext } from 'react';
+import { createContext, useReducer, useRef } from 'react';
 import New from './pages/New';
 
-const data = DIARY_TEMP_DATA;
+const mockData = DIARY_TEMP_DATA;
 
-export const DiaryStateContext = createContext<DiaryData[]>([]);
+interface DiaryDispatch {
+    onCreate: (date: string, feelingId: number, content?: string, weight?: number) => void;
+    onUpdate: (id: number, date: string, feelingId: number, content?: string, weight?: number) => void;
+    onDelete: (id: number) => void;
+}
+
+type Action =
+    | { type: 'CREATE'; data: DiaryData }
+    | { type: 'UPDATE'; data: DiaryData }
+    | { type: 'DELETE'; id: number };
+
+function reducer(state: DiaryData[], action: Action): DiaryData[] {
+    switch (action.type) {
+        case 'CREATE':
+            return [action.data, ...state];
+        case 'UPDATE':
+            return state.map((item) => (item.id === action.data.id ? action.data : item));
+        case 'DELETE':
+            return state.filter((item) => item.id !== action.id);
+        default:
+            return state;
+    }
+}
+
+export const DiaryStateContext = createContext<DiaryData[] | undefined>(undefined);
+export const DiaryDispatchContext = createContext<DiaryDispatch | undefined>(undefined);
 
 function App() {
+    const [data, dispatch] = useReducer(reducer, mockData);
+    const idRef = useRef(15);
+
+    const onCreate = (date: string, feelingId: number, content?: string, weight?: number) => {
+        dispatch({
+            type: 'CREATE',
+            data: {
+                id: idRef.current++,
+                date,
+                feelingId,
+                content,
+                weight,
+            },
+        });
+    };
+
+    const onUpdate = (id: number, date: string, feelingId: number, content?: string, weight?: number) => {
+        dispatch({
+            type: 'UPDATE',
+            data: { id, date, feelingId, content, weight },
+        });
+    };
+
+    const onDelete = (id: number) => {
+        dispatch({ type: 'DELETE', id });
+    };
+
     return (
         <>
             <DiaryStateContext.Provider value={data}>
-                <Routes>
-                    <Route path="/" element={<Calendar />} />
-                    <Route path="/new" element={<New />} />
-                </Routes>
+                <DiaryDispatchContext.Provider value={{ onCreate, onDelete, onUpdate }}>
+                    <Routes>
+                        <Route path="/" element={<Calendar />} />
+                        <Route path="/new" element={<New />} />
+                    </Routes>
+                </DiaryDispatchContext.Provider>
             </DiaryStateContext.Provider>
         </>
     );

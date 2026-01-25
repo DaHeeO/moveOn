@@ -1,4 +1,4 @@
-.CalendarBottomSheet {
+.BottomButton {
     display: flex;
     position: fixed;
     bottom: 0;
@@ -12,7 +12,7 @@
     align-items: flex-start;
 }
 
-.CalendarBottomSheet > button {
+.BottomButton > button {
     font-family: 'NotoSansKR-Medium';
     width: 100%;
     padding: 18px 0px;

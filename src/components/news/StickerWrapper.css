@@ -1,6 +1,7 @@
 .StickerWrapper {
     width: calc(100% + 30px);
     margin: 0 -15px;
+    margin-bottom: 36px;
 }
 
 .StickerWrapper > h3 {

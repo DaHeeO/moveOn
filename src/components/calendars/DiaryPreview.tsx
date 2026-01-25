@@ -25,7 +25,7 @@ const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
                 </div>
                 <div className="content-wrapper">
                     <div className="empty-wrapper">
-                        <img src="../src/assets/feelingDefault.png" className="img_wrapper" />
+                        <img src="../src/assets/feeling/feeling1gray.png" className="img_wrapper" />
                         <p>작성된 스티커 일기가 없어요</p>
                     </div>
                 </div>

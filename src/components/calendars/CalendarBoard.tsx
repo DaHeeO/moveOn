@@ -1,5 +1,4 @@
 import type { DiaryData } from '../../constants/diary-constants';
-import { getFormattedDate } from '../../utils/diaryFileter';
 import './CalendarBoard.css';
 import CalendarItem from './CalendarItem';
 
@@ -14,8 +13,6 @@ const CalendarBoard = ({ todayRef, pivotDate, updatePivotDate, monthlyDairy }: P
     const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 
     const [year, month, currentDate] = pivotDate.split('-').map(Number);
-    const todayStr = getFormattedDate(todayRef);
-    console.log(pivotDate, todayStr);
 
     // 0: sun, 1: mon, ...
     const firstDayOfMonth = new Date(year, month - 1, 1).getDay();

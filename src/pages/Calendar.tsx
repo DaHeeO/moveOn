@@ -4,9 +4,20 @@ import { getFormattedDate, getMonthlyData, getSelectedDiary } from '../utils/dia
 import CalendarBoard from '../components/calendars/CalendarBoard';
 import CalendarHeader from '../components/calendars/CalendarHeader';
 import DiaryPreview from '../components/calendars/DiaryPreview';
-import CalendarBottomSheet from '../components/calendars/CalendarBottomSheet';
+import BottomButton from '../components/common/BottomButton';
+import { useNavigate } from 'react-router-dom';
 
 const Calendar = () => {
+    const nav = useNavigate();
+
+    const handleDiaryAction = () => {
+        // if (selectedDiary?.id) {
+        //     nav(`/edit/${selectedDiary.id}`);
+        // } else {
+        //     nav('/new');
+        // }
+        nav('/new');
+    };
     const data = useContext(DiaryStateContext);
     const [pivotDate, setPivotDate] = useState(getFormattedDate(new Date()));
     // header 부분에서 관리하는 년, 월 을 담은 viewMonth
@@ -56,7 +67,7 @@ const Calendar = () => {
                 monthlyDairy={monthlyDairy}
             />
             <DiaryPreview selectedDiary={selectedDiary} pivotDate={pivotDate} />
-            <CalendarBottomSheet id={selectedDiary?.id} />
+            <BottomButton label={selectedDiary?.id ? '일기 수정' : '일기 쓰기'} onClick={handleDiaryAction} />
         </div>
     );
 };
