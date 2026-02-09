@@ -41,7 +41,6 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 12px;
-    background-color: var(--bg-gray-200);
 }
 
 .StickerImageWrapper img {

@@ -25,6 +25,7 @@ const Calendar = () => {
     const todayRef = useRef(new Date());
 
     const monthlyDairy = useMemo(() => {
+        if (!data) return [];
         return getMonthlyData(data, viewMonth);
     }, [viewMonth]);
 

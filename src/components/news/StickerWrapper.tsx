@@ -21,7 +21,11 @@ const StickerWrapper = ({ stickers }: Props) => {
                     <div key={item.feelingId} className="StickerItem" onClick={() => onClickSticker(item.feelingId)}>
                         <div
                             className="StickerImageWrapper"
-                            style={selectedSticker === item.feelingId ? { backgroundColor: item.color } : {}}
+                            style={
+                                selectedSticker === item.feelingId
+                                    ? { backgroundColor: item.color }
+                                    : { backgroundColor: `${item.color === 'transparent' ? 'transparent' : '#E6E7EA'}` }
+                            }
                         >
                             <img
                                 src={selectedSticker === item.feelingId ? item.src : item.srcGray}
