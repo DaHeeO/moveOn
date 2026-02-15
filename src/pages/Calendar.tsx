@@ -6,6 +6,8 @@ import CalendarHeader from '../components/calendars/CalendarHeader';
 import DiaryPreview from '../components/calendars/DiaryPreview';
 import BottomButton from '../components/common/BottomButton';
 import { useNavigate } from 'react-router-dom';
+import CalendarCategory from '../components/calendars/CalendarCategory';
+import type { CategoryKey } from '../constants/category-constants';
 
 const Calendar = () => {
     const nav = useNavigate();
@@ -33,6 +35,8 @@ const Calendar = () => {
         return getSelectedDiary(monthlyDairy, pivotDate);
     }, [pivotDate]);
 
+    const [selectedCategory, setSelectedCategory] = useState<CategoryKey>('feeling');
+
     // CalendarHeader에서 관리하는 로직 -> 년, 월 만 변경
     const updateViewMonth = (nextMonth: string) => {
         const [year, month] = nextMonth.split('-').map(Number);
@@ -53,6 +57,10 @@ const Calendar = () => {
         setPivotDate(getFormattedDate(new Date(year, month - 1, selectedDate)));
     };
 
+    const updateCategory = (category: CategoryKey) => {
+        setSelectedCategory(category);
+    };
+
     return (
         <div style={{ display: 'flex', flexDirection: 'column', flex: 1, width: '100%' }}>
             <CalendarHeader
@@ -61,6 +69,7 @@ const Calendar = () => {
                 updateViewMonth={updateViewMonth}
                 updateDateToToday={updateDateToToday}
             />
+            <CalendarCategory selectedCategory={selectedCategory} updateCategory={updateCategory} />
             <CalendarBoard
                 todayRef={todayRef.current}
                 pivotDate={pivotDate}
