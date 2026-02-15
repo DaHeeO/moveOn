@@ -43,7 +43,7 @@ export const DiaryDispatchContext = createContext<DiaryDispatch | undefined>(und
 
 function App() {
     const [data, dispatch] = useReducer(reducer, mockData);
-    const idRef = useRef(15);
+    const idRef = useRef(DIARY_TEMP_DATA.length + 1);
 
     const onCreate = (
         date: string,

@@ -1,16 +1,14 @@
-import { FEELING_LIST } from '../../constants/category-constants';
+import { type CategoryData } from '../../constants/category-constants';
 import './CalendarItem.css';
 
 interface Props {
     day: number;
-    feelingId?: number;
     isToday: boolean;
     isSelected: boolean;
+    sticker?: CategoryData;
     handleDateClick: (day: number) => void;
 }
-const CalendarItem = ({ day, feelingId, isToday, isSelected, handleDateClick }: Props) => {
-    const feeling = FEELING_LIST.find((it) => it.id === feelingId);
-
+const CalendarItem = ({ day, isToday, isSelected, sticker, handleDateClick }: Props) => {
     let tooltipText = '';
     let tooltipClass = '';
 
@@ -29,14 +27,14 @@ const CalendarItem = ({ day, feelingId, isToday, isSelected, handleDateClick }: 
         return <div className="CalendarItem empty"></div>;
     }
 
-    return feelingId && feeling ? (
+    return sticker ? (
         <div
             className={`CalendarItem has-feeling ${isSelected ? 'selected' : ''}`}
             onClick={() => handleDateClick(day)}
-            style={{ backgroundColor: feeling.color }}
+            style={{ backgroundColor: sticker.color }}
         >
             {tooltipText && <div className={tooltipClass}>{tooltipText}</div>}
-            <img src={`../src/assets/feeling/feeling${feelingId}.png`} alt={feeling.name} className="emotion-img" />
+            <img src={sticker.src} alt={sticker.name} className="emotion-img" />
         </div>
     ) : (
         <div className="CalendarItem" onClick={() => handleDateClick(day)}>

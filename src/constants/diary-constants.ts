@@ -23,6 +23,7 @@ export const DIARY_TEMP_DATA: DiaryData[] = [
             feeling: 1,
             diet: 3,
             workout: 5,
+            poop: 1,
         },
     },
     {
@@ -34,6 +35,7 @@ export const DIARY_TEMP_DATA: DiaryData[] = [
             feeling: 1,
             diet: 3,
             workout: 5,
+            poop: 1,
         },
     },
     {
@@ -166,6 +168,30 @@ export const DIARY_TEMP_DATA: DiaryData[] = [
         date: '2026-02-01',
         feelingId: 3,
         content: '몰라여',
+        stickers: {
+            feeling: 1,
+            diet: 3,
+            workout: 5,
+        },
+    },
+    {
+        id: 15,
+        date: '2026-02-03',
+        feelingId: 3,
+        content: '발렌타인데이',
+        stickers: {
+            feeling: 3,
+            diet: 8,
+            workout: 11,
+            poop: 1,
+            sleep: 1,
+        },
+    },
+    {
+        id: 16,
+        date: '2026-02-18',
+        feelingId: 3,
+        content: '설날',
         stickers: {
             feeling: 1,
             diet: 3,

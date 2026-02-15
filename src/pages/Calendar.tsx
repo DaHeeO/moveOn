@@ -75,6 +75,7 @@ const Calendar = () => {
                 pivotDate={pivotDate}
                 updatePivotDate={updatePivotDate}
                 monthlyDairy={monthlyDairy}
+                selectedCategory={selectedCategory}
             />
             <DiaryPreview selectedDiary={selectedDiary} pivotDate={pivotDate} />
             <BottomButton label={selectedDiary?.id ? '일기 수정' : '일기 쓰기'} onClick={handleDiaryAction} />
