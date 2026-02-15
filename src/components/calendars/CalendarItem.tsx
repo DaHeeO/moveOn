@@ -1,4 +1,4 @@
-import { FEELING_LIST } from '../../constants/feeling-constants';
+import { FEELING_LIST } from '../../constants/category-constants';
 import './CalendarItem.css';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
     handleDateClick: (day: number) => void;
 }
 const CalendarItem = ({ day, feelingId, isToday, isSelected, handleDateClick }: Props) => {
-    const feeling = FEELING_LIST.find((it) => it.feelingId === feelingId);
+    const feeling = FEELING_LIST.find((it) => it.id === feelingId);
 
     let tooltipText = '';
     let tooltipClass = '';
@@ -36,11 +36,7 @@ const CalendarItem = ({ day, feelingId, isToday, isSelected, handleDateClick }: 
             style={{ backgroundColor: feeling.color }}
         >
             {tooltipText && <div className={tooltipClass}>{tooltipText}</div>}
-            <img
-                src={`../src/assets/feeling/feeling${feelingId}.png`}
-                alt={feeling.feelingName}
-                className="emotion-img"
-            />
+            <img src={`../src/assets/feeling/feeling${feelingId}.png`} alt={feeling.name} className="emotion-img" />
         </div>
     ) : (
         <div className="CalendarItem" onClick={() => handleDateClick(day)}>

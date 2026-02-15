@@ -18,22 +18,19 @@ const StickerWrapper = ({ stickers }: Props) => {
 
             <div className="StickerScrollContainer">
                 {stickers.stickers.map((item) => (
-                    <div key={item.feelingId} className="StickerItem" onClick={() => onClickSticker(item.feelingId)}>
+                    <div key={item.id} className="StickerItem" onClick={() => onClickSticker(item.id)}>
                         <div
                             className="StickerImageWrapper"
                             style={
-                                selectedSticker === item.feelingId
+                                selectedSticker === item.id
                                     ? { backgroundColor: item.color }
                                     : { backgroundColor: `${item.color === 'transparent' ? 'transparent' : '#E6E7EA'}` }
                             }
                         >
-                            <img
-                                src={selectedSticker === item.feelingId ? item.src : item.srcGray}
-                                alt={item.feelingName}
-                            />
+                            <img src={selectedSticker === item.id ? item.src : item.srcGray} alt={item.name} />
                         </div>
-                        <span className={`StickerName ${selectedSticker === item.feelingId ? 'selected' : ''}`}>
-                            {item.feelingName}
+                        <span className={`StickerName ${selectedSticker === item.id ? 'selected' : ''}`}>
+                            {item.name}
                         </span>
                     </div>
                 ))}

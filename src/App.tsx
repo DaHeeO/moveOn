@@ -1,15 +1,22 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Calendar from './pages/Calendar';
-import { type DiaryData, DIARY_TEMP_DATA } from './constants/diary-constants';
+import { type DiaryData, type StickerSelection, DIARY_TEMP_DATA } from './constants/diary-constants';
 import { createContext, useReducer, useRef } from 'react';
 import New from './pages/New';
 
 const mockData = DIARY_TEMP_DATA;
 
 interface DiaryDispatch {
-    onCreate: (date: string, feelingId: number, content?: string, weight?: number) => void;
-    onUpdate: (id: number, date: string, feelingId: number, content?: string, weight?: number) => void;
+    onCreate: (date: string, feelingId: number, content?: string, weight?: number, stickers?: StickerSelection) => void;
+    onUpdate: (
+        id: number,
+        date: string,
+        feelingId: number,
+        content?: string,
+        weight?: number,
+        stickers?: StickerSelection,
+    ) => void;
     onDelete: (id: number) => void;
 }
 
@@ -38,7 +45,13 @@ function App() {
     const [data, dispatch] = useReducer(reducer, mockData);
     const idRef = useRef(15);
 
-    const onCreate = (date: string, feelingId: number, content?: string, weight?: number) => {
+    const onCreate = (
+        date: string,
+        feelingId: number,
+        content?: string,
+        weight?: number,
+        stickers?: StickerSelection,
+    ) => {
         dispatch({
             type: 'CREATE',
             data: {
@@ -47,14 +60,22 @@ function App() {
                 feelingId,
                 content,
                 weight,
+                stickers,
             },
         });
     };
 
-    const onUpdate = (id: number, date: string, feelingId: number, content?: string, weight?: number) => {
+    const onUpdate = (
+        id: number,
+        date: string,
+        feelingId: number,
+        content?: string,
+        weight?: number,
+        stickers?: StickerSelection,
+    ) => {
         dispatch({
             type: 'UPDATE',
-            data: { id, date, feelingId, content, weight },
+            data: { id, date, feelingId, content, weight, stickers },
         });
     };
 

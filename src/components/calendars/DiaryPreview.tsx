@@ -1,5 +1,5 @@
+import { FEELING_LIST } from '../../constants/category-constants';
 import type { DiaryData } from '../../constants/diary-constants';
-import { FEELING_LIST } from '../../constants/feeling-constants';
 import './DiaryPreview.css';
 
 interface Props {
@@ -15,7 +15,7 @@ const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
     const date = curDate.getDate();
     const day = DAYS[curDate.getDay()];
     const formattedDate = `${month}.${date} ${day}`;
-    const feeling = FEELING_LIST.find((it) => it.feelingId === selectedDiary?.feelingId);
+    const feeling = FEELING_LIST.find((it) => it.id === selectedDiary?.feelingId);
 
     if (!selectedDiary) {
         return (
@@ -48,7 +48,7 @@ const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
                         className="icon-wrapper"
                         style={{ backgroundColor: feeling?.color }}
                     />
-                    {feeling?.feelingName}
+                    {feeling?.name}
                 </div>
                 <p style={{ color: 'black' }}> {selectedDiary.content}</p>
             </div>
