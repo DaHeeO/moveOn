@@ -1,7 +1,7 @@
 .CalendarCategory {
     width: calc(100% + 30px);
     margin: 0 -15px;
-    margin-bottom: 18px;
+    margin-bottom: 25px;
     display: flex;
     overflow-x: auto;
     gap: 12px;

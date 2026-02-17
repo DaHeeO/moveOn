@@ -57,7 +57,7 @@ const CalendarBoard = ({ todayRef, pivotDate, updatePivotDate, monthlyDairy, sel
                     });
 
                     // 여기다가 로직 처리를 해야함 category 별로
-                    const currentStickerId = dayData?.stickers?.[selectedCategory];
+                    const currentStickerId = dayData?.stickers[selectedCategory];
                     const sticker = stickers.stickers.find((s) => s.id === currentStickerId);
                     return (
                         <CalendarItem
