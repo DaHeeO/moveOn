@@ -53,26 +53,38 @@
 }
 
 .content-wrapper > p {
-    margin: 0;
+    margin-bottom: 32px;
+}
+
+.icon-div-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 32px;
+    margin-top: 4px;
+    margin-bottom: 40px;
 }
 
 .icon-list-wrapper {
     display: flex;
     gap: 8px;
+    justify-content: center;
     align-items: center;
-    margin: 12px 0px;
-    width: fit-content;
-    padding: 4px 12px;
-    border-radius: 20px;
     color: #6d727b;
 }
 
-.icon-list-wrapper > .icon-wrapper {
+.icon-wrapper {
     width: 24px;
+    height: 24px;
     aspect-ratio: 1/1;
-    border-radius: 100px;
+    border-radius: 50%;
+}
+
+.icon-list-wrapper > span {
+    font-size: 12px;
 }
 
 .icon-wrapper > img {
-    width: 90%;
+    width: 100%;
+    object-fit: contain;
 }

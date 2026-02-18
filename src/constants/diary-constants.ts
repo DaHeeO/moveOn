@@ -7,7 +7,6 @@ export type StickerSelection = {
 export interface DiaryData {
     id: number;
     date: string;
-    feelingId: number;
     content?: string;
     weight?: number;
     stickers: StickerSelection;
@@ -17,7 +16,6 @@ export const DIARY_TEMP_DATA: DiaryData[] = [
     {
         id: 1,
         date: '2026-02-01',
-        feelingId: 1,
         content: '2월 시작 ㄱㅂㅈㄱ',
         stickers: {
             feeling: 1,
@@ -31,7 +29,6 @@ export const DIARY_TEMP_DATA: DiaryData[] = [
     {
         id: 2,
         date: '2026-02-02',
-        feelingId: 2,
         content: '10키로 감량 성공 다 디졌다',
         stickers: {
             feeling: 2,
@@ -45,7 +42,6 @@ export const DIARY_TEMP_DATA: DiaryData[] = [
     {
         id: 3,
         date: '2026-02-03',
-        feelingId: 3,
         content: '근데 난 왜 일찍 못일어날까?',
         weight: 73.2,
         stickers: {
@@ -60,7 +56,6 @@ export const DIARY_TEMP_DATA: DiaryData[] = [
     {
         id: 4,
         date: '2026-02-07',
-        feelingId: 4,
         content: '와 나 이제 좀 잘한다. ㅎㅋㅋㅋㅋ',
         stickers: {
             feeling: 4,
@@ -74,7 +69,6 @@ export const DIARY_TEMP_DATA: DiaryData[] = [
     {
         id: 5,
         date: '2026-02-13',
-        feelingId: 5,
         content: '할일 : 일기 추가 기능 만들기',
         weight: 72.2,
         stickers: {
@@ -89,7 +83,6 @@ export const DIARY_TEMP_DATA: DiaryData[] = [
     {
         id: 6,
         date: '2026-02-18',
-        feelingId: 6,
         content: '스크롤 기능도 추가 하면 좋은데 너무 어려워',
         stickers: {
             feeling: 6,
@@ -103,7 +96,6 @@ export const DIARY_TEMP_DATA: DiaryData[] = [
     {
         id: 7,
         date: '2026-02-20',
-        feelingId: 7,
         content: 'local storage 기능 활용해서 내꺼 저장하는거 아니면 DB 새로 파? ',
         weight: 71.6,
         stickers: {
@@ -118,7 +110,6 @@ export const DIARY_TEMP_DATA: DiaryData[] = [
     {
         id: 8,
         date: '2026-02-23',
-        feelingId: 8,
         content: '일을 키우지 말자 다희야',
         stickers: {
             feeling: 8,
@@ -131,7 +122,6 @@ export const DIARY_TEMP_DATA: DiaryData[] = [
     {
         id: 9,
         date: '2026-02-24',
-        feelingId: 9,
         content: '헬창이 되겠어',
         stickers: {
             feeling: 9,
@@ -142,7 +132,6 @@ export const DIARY_TEMP_DATA: DiaryData[] = [
     {
         id: 10,
         date: '2026-02-25',
-        feelingId: 3,
         content: '기가 막히노',
         weight: 72.1,
         stickers: {
@@ -154,8 +143,12 @@ export const DIARY_TEMP_DATA: DiaryData[] = [
     {
         id: 11,
         date: '2026-02-27',
-        feelingId: 10,
-        content: '유진이 와저러노',
+        content: `유진이 와저러노 이것은 테스트 
+        내가 만약 띄어쓰기를 적용했다면? 
+        사용자가 렁나어라유진이 와저러노 이것은 테스트 
+        내가 만약 띄어쓰기를 적용했다면? 
+        사용자가 렁나어라
+        지금은 적용안됨`,
         stickers: {
             workout: 11,
         },

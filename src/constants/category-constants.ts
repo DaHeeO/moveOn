@@ -4,6 +4,7 @@ export interface CategoryData {
     color: string;
     src: string;
     srcGray: string;
+    srcException?: string;
 }
 export type CategoryKey = 'feeling' | 'diet' | 'workout' | 'poop' | 'sleep' | 'period';
 
@@ -285,6 +286,7 @@ export const SLEEP_LIST: CategoryData[] = [
         color: '#CBDDFD',
         src: '/src/assets/sleep/sleep1.png',
         srcGray: '/src/assets/sleep/sleep1gray.png',
+        srcException: '/src/assets/sleep/sleepIcon.png',
     },
     {
         id: 2,
@@ -292,6 +294,7 @@ export const SLEEP_LIST: CategoryData[] = [
         color: '#91B3F0',
         src: '/src/assets/sleep/sleep2.png',
         srcGray: '/src/assets/sleep/sleep2gray.png',
+        srcException: '/src/assets/sleep/sleepIcon2.png',
     },
     {
         id: 3,

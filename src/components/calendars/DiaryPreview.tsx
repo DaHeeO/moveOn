@@ -1,5 +1,5 @@
-import { FEELING_LIST } from '../../constants/category-constants';
 import type { DiaryData } from '../../constants/diary-constants';
+import { STICKERS } from '../../constants/sticker-constants';
 import './DiaryPreview.css';
 
 interface Props {
@@ -15,7 +15,6 @@ const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
     const date = curDate.getDate();
     const day = DAYS[curDate.getDay()];
     const formattedDate = `${month}.${date} ${day}`;
-    const feeling = FEELING_LIST.find((it) => it.id === selectedDiary?.feelingId);
 
     if (!selectedDiary) {
         return (
@@ -42,13 +41,36 @@ const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
                 </div>
             </div>
             <div className="content-wrapper">
-                <div className="icon-list-wrapper">
-                    <img
-                        src={`../src/assets/feeling/feeling${selectedDiary.feelingId}.png`}
-                        className="icon-wrapper"
-                        style={{ backgroundColor: feeling?.color }}
-                    />
-                    {feeling?.name}
+                <div className="icon-div-wrapper">
+                    {Object.entries(selectedDiary.stickers).map(([key, id]) => {
+                        const categoryConfig = STICKERS.find((s) => s.key === key);
+                        const stickerInfo = categoryConfig?.stickers.find((it) => it.id === id);
+
+                        const isSleepExeption = () => {
+                            if (key === 'sleep' && (id === 1 || id === 2)) {
+                                return true;
+                            }
+                            return false;
+                        };
+                        if (!stickerInfo) return null;
+
+                        return (
+                            <div key={key} className="icon-list-wrapper">
+                                <div
+                                    className="icon-wrapper"
+                                    style={{
+                                        backgroundColor: isSleepExeption() ? 'transparent' : stickerInfo?.color,
+                                    }}
+                                >
+                                    <img
+                                        src={isSleepExeption() ? stickerInfo.srcException : stickerInfo.src}
+                                        alt={stickerInfo.name}
+                                    />
+                                </div>
+                                <span>{stickerInfo.name}</span>
+                            </div>
+                        );
+                    })}
                 </div>
                 <p style={{ color: 'black' }}> {selectedDiary.content}</p>
             </div>
