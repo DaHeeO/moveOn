@@ -1,12 +1,12 @@
 import { useContext, useMemo, useRef, useState } from 'react';
 import { DiaryStateContext } from '../App';
 import { getFormattedDate, getMonthlyData, getSelectedDiary } from '../utils/diaryFileter';
-import CalendarBoard from '../components/calendars/CalendarBoard';
-import CalendarHeader from '../components/calendars/CalendarHeader';
-import DiaryPreview from '../components/calendars/DiaryPreview';
+import CalendarBoard from '../components/calendar/CalendarBoard';
+import CalendarHeader from '../components/calendar/CalendarHeader';
+import DiaryPreview from '../components/calendar/DiaryPreview';
 import BottomButton from '../components/common/BottomButton';
 import { useNavigate } from 'react-router-dom';
-import CalendarCategory from '../components/calendars/CalendarCategory';
+import CalendarCategory from '../components/calendar/CalendarCategory';
 import type { CategoryKey } from '../constants/category-constants';
 
 const Calendar = () => {
@@ -18,7 +18,7 @@ const Calendar = () => {
         // } else {
         //     nav('/new');
         // }
-        nav('/new');
+        nav('/new1');
     };
     const data = useContext(DiaryStateContext);
     const [pivotDate, setPivotDate] = useState(getFormattedDate(new Date()));

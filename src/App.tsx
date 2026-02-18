@@ -3,7 +3,9 @@ import './App.css';
 import Calendar from './pages/Calendar';
 import { type DiaryData, type StickerSelection, DIARY_TEMP_DATA } from './constants/diary-constants';
 import { createContext, useReducer, useRef } from 'react';
-import New from './pages/New';
+import New from './pages/NewSticker';
+import NewSticker from './pages/NewSticker';
+import NewContent from './pages/NewContent';
 
 const mockData = DIARY_TEMP_DATA;
 
@@ -68,7 +70,8 @@ function App() {
                 <DiaryDispatchContext.Provider value={{ onCreate, onDelete, onUpdate }}>
                     <Routes>
                         <Route path="/" element={<Calendar />} />
-                        <Route path="/new" element={<New />} />
+                        <Route path="/new1" element={<NewSticker />} />
+                        <Route path="/new2" element={<NewContent />} />
                     </Routes>
                 </DiaryDispatchContext.Provider>
             </DiaryStateContext.Provider>

@@ -1,0 +1,48 @@
+.NewContentBox {
+    margin-bottom: 30px;
+}
+
+.NewContentBox > .sub-text {
+    font-family: 'NotoSansKR-Medium';
+    font-size: 14px;
+    color: var(--text-icy-gray);
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.contenBoxWrapper {
+    display: flex;
+    width: 100%;
+    height: 200px;
+    flex: 1;
+    background-color: var(--bg-gray-100);
+    border-radius: 10px;
+    padding: 16px 24px;
+    gap: 16px;
+}
+
+.contentBox {
+    border: none;
+    background: none;
+    outline: none;
+    appearance: none;
+    padding: 0;
+    margin: 0;
+
+    width: 100%;
+    resize: none;
+
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.contetnBox:focus {
+    outline: none;
+}
+
+.contetnBox::placeholder {
+    color: var(--text-icy-gray);
+    font-size: 16px;
+    line-height: 1.5;
+}

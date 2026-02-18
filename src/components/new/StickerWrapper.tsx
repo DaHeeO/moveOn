@@ -9,7 +9,9 @@ interface Props {
 const StickerWrapper = ({ stickers }: Props) => {
     const [selectedSticker, setSelectedSticker] = useState(-1);
     const onClickSticker = (id: number) => {
-        setSelectedSticker(id);
+        if (selectedSticker === id) {
+            setSelectedSticker(-1);
+        } else setSelectedSticker(id);
     };
 
     return (
