@@ -8,15 +8,8 @@ import New from './pages/New';
 const mockData = DIARY_TEMP_DATA;
 
 interface DiaryDispatch {
-    onCreate: (date: string, feelingId: number, content?: string, weight?: number, stickers?: StickerSelection) => void;
-    onUpdate: (
-        id: number,
-        date: string,
-        feelingId: number,
-        content?: string,
-        weight?: number,
-        stickers?: StickerSelection,
-    ) => void;
+    onCreate: (date: string, stickers: StickerSelection, content?: string, weight?: number) => void;
+    onUpdate: (id: number, date: string, stickers: StickerSelection, content?: string, weight?: number) => void;
     onDelete: (id: number) => void;
 }
 
@@ -45,37 +38,23 @@ function App() {
     const [data, dispatch] = useReducer(reducer, mockData);
     const idRef = useRef(DIARY_TEMP_DATA.length + 1);
 
-    const onCreate = (
-        date: string,
-        feelingId: number,
-        content?: string,
-        weight?: number,
-        stickers?: StickerSelection,
-    ) => {
+    const onCreate = (date: string, stickers: StickerSelection, content?: string, weight?: number) => {
         dispatch({
             type: 'CREATE',
             data: {
                 id: idRef.current++,
                 date,
-                feelingId,
+                stickers,
                 content,
                 weight,
-                stickers,
             },
         });
     };
 
-    const onUpdate = (
-        id: number,
-        date: string,
-        feelingId: number,
-        content?: string,
-        weight?: number,
-        stickers?: StickerSelection,
-    ) => {
+    const onUpdate = (id: number, date: string, stickers: StickerSelection, content?: string, weight?: number) => {
         dispatch({
             type: 'UPDATE',
-            data: { id, date, feelingId, content, weight, stickers },
+            data: { id, date, stickers, content, weight },
         });
     };
 
