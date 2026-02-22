@@ -1,4 +1,4 @@
-import { useContext, useMemo, useRef, useState } from 'react';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { DiaryStateContext } from '../App';
 import { getFormattedDate, getMonthlyData, getSelectedDiary } from '../utils/diaryFileter';
 import CalendarBoard from '../components/calendar/CalendarBoard';
@@ -21,6 +21,7 @@ const Calendar = () => {
         // }
         nav('/new1', { state: { date: pivotDate } });
     };
+
     const data = useContext(DiaryStateContext);
 
     const [pivotDate, setPivotDate] = useState(() => {
@@ -30,6 +31,14 @@ const Calendar = () => {
         // 선택된거 있으면 PivotDate 아니면 오늘날짜
         return pivotDate || getFormattedDate(new Date());
     });
+
+    // state 안 비워져서 이렇게 두는거
+    useEffect(() => {
+        if (location.state?.pivotDate) {
+            nav(location.pathname, { replace: true, state: {} });
+        }
+    }, []);
+
     // header 부분에서 관리하는 년, 월 을 담은 viewMonth
     const viewMonth = pivotDate.slice(0, 7);
     const todayRef = useRef(new Date());

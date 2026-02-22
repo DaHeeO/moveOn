@@ -10,8 +10,8 @@ import type { StickerSelection } from '../constants/diary-constants';
 const NewSticker = () => {
     const nav = useNavigate();
     const location = useLocation();
-    const { date } = location.state || {};
-    const savedStickers = location.state?.stickers;
+
+    const { date, stickers: savedStickers, content: savedContent } = location.state || {};
 
     const navigateBack = () => {
         nav('/');
@@ -46,6 +46,7 @@ const NewSticker = () => {
             state: {
                 date,
                 stickers: filteredStickers,
+                content: savedContent,
             },
         });
     };

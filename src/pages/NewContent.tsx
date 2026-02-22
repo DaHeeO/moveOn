@@ -11,9 +11,9 @@ const NewContent = () => {
 
     const { onCreate } = useContext(DiaryDispatchContext)!;
 
-    const { date, stickers } = location.state || {};
+    const { date, stickers, content: incomingContent } = location.state || {};
 
-    const [content, setContent] = useState('');
+    const [content, setContent] = useState(incomingContent || '');
 
     const handleCreate = () => {
         onCreate(date, stickers, content);
@@ -26,6 +26,7 @@ const NewContent = () => {
             state: {
                 date,
                 stickers,
+                content,
             },
         });
     };
