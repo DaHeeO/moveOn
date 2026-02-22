@@ -13,12 +13,12 @@ const Calendar = () => {
     const nav = useNavigate();
 
     const handleDiaryAction = () => {
-        // if (selectedDiary?.id) {
-        //     nav(`/edit/${selectedDiary.id}`);
+        // if (selectedDiary) {
+        //     nav(`/edit/${selectedDiary.id}`, { state: { diaryData: selectedDiary } });
         // } else {
-        //     nav('/new');
+        //     nav('/new1', { state: { date: pivotDate } });
         // }
-        nav('/new1');
+        nav('/new1', { state: { date: pivotDate } });
     };
     const data = useContext(DiaryStateContext);
     const [pivotDate, setPivotDate] = useState(getFormattedDate(new Date()));
@@ -78,7 +78,11 @@ const Calendar = () => {
                 selectedCategory={selectedCategory}
             />
             <DiaryPreview selectedDiary={selectedDiary} pivotDate={pivotDate} />
-            <BottomButton label={selectedDiary?.id ? '일기 수정' : '일기 쓰기'} onClick={handleDiaryAction} />
+            <BottomButton
+                focus={true}
+                label={selectedDiary?.id ? '일기 수정' : '일기 쓰기'}
+                onClick={handleDiaryAction}
+            />
         </div>
     );
 };

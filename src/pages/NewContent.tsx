@@ -1,14 +1,29 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import NewHeader from '../components/new/NewHeader';
 import NewContentBox from '../components/new/NewContentBox';
 import BottomButton from '../components/common/BottomButton';
+import { useContext, useState } from 'react';
+import { DiaryDispatchContext } from '../App';
 
 const NewContent = () => {
     const nav = useNavigate();
+    const location = useLocation();
+
+    const { onCreate } = useContext(DiaryDispatchContext)!;
+
+    const { date, stickers } = location.state || {};
+
+    const [content, setContent] = useState('');
+
+    const handleCreate = () => {
+        onCreate(date, stickers, content);
+        nav('/', { replace: true });
+    };
 
     const navigateBack = () => {
         nav(-1);
     };
+
     return (
         <div>
             <NewHeader
@@ -20,7 +35,7 @@ const NewContent = () => {
                 navigateBack={navigateBack}
             />
             <NewContentBox />
-            <BottomButton label={'기록 완료'} onClick={() => {}} />
+            <BottomButton focus={true} label={'기록 완료'} onClick={handleCreate} />
         </div>
     );
 };

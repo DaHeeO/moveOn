@@ -1,17 +1,19 @@
 import './StickerWrapper.css';
 import type { StickerTypeData } from '../../constants/sticker-constants';
-import { useState } from 'react';
 
 interface Props {
     stickers: StickerTypeData;
+    selectedId: number;
+    onSelect: (id: number) => void;
 }
 
-const StickerWrapper = ({ stickers }: Props) => {
-    const [selectedSticker, setSelectedSticker] = useState(-1);
+const StickerWrapper = ({ stickers, selectedId, onSelect }: Props) => {
     const onClickSticker = (id: number) => {
-        if (selectedSticker === id) {
-            setSelectedSticker(-1);
-        } else setSelectedSticker(id);
+        if (selectedId === id) {
+            onSelect(-1);
+        } else {
+            onSelect(id);
+        }
     };
 
     return (
@@ -24,16 +26,14 @@ const StickerWrapper = ({ stickers }: Props) => {
                         <div
                             className="StickerImageWrapper"
                             style={
-                                selectedSticker === item.id
+                                selectedId === item.id
                                     ? { backgroundColor: item.color }
                                     : { backgroundColor: `${item.color === 'transparent' ? 'transparent' : '#E6E7EA'}` }
                             }
                         >
-                            <img src={selectedSticker === item.id ? item.src : item.srcGray} alt={item.name} />
+                            <img src={selectedId === item.id ? item.src : item.srcGray} alt={item.name} />
                         </div>
-                        <span className={`StickerName ${selectedSticker === item.id ? 'selected' : ''}`}>
-                            {item.name}
-                        </span>
+                        <span className={`StickerName ${selectedId === item.id ? 'selected' : ''}`}>{item.name}</span>
                     </div>
                 ))}
             </div>

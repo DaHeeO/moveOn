@@ -3,7 +3,6 @@ import './App.css';
 import Calendar from './pages/Calendar';
 import { type DiaryData, type StickerSelection, DIARY_TEMP_DATA } from './constants/diary-constants';
 import { createContext, useReducer, useRef } from 'react';
-import New from './pages/NewSticker';
 import NewSticker from './pages/NewSticker';
 import NewContent from './pages/NewContent';
 
