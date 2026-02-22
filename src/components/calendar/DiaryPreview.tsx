@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import type { DiaryData } from '../../constants/diary-constants';
 import { STICKERS } from '../../constants/sticker-constants';
 import './DiaryPreview.css';
@@ -10,11 +11,19 @@ interface Props {
 const DAYS = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
 
 const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
+    const nav = useNavigate();
+
     const curDate = new Date(pivotDate);
     const month = curDate.getMonth() + 1;
     const date = curDate.getDate();
     const day = DAYS[curDate.getDay()];
     const formattedDate = `${month}.${date} ${day}`;
+
+    const navigateToEditPage = () => {
+        if (selectedDiary) {
+            nav(`/edit1/${selectedDiary.id}`, { state: { diaryData: selectedDiary } });
+        }
+    };
 
     if (!selectedDiary) {
         return (
@@ -36,7 +45,7 @@ const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
             <div className="header-wrapper">
                 <div>{formattedDate}</div>
                 <div className="diary-button">
-                    <div> 수정</div>
+                    <div onClick={navigateToEditPage}> 수정</div>
                     <div> 삭제</div>
                 </div>
             </div>

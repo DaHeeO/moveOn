@@ -1,56 +1,48 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import NewHeader from '../components/new/NewHeader';
 import StickerWrapper from '../components/new/StickerWrapper';
 
 import BottomButton from '../components/common/BottomButton';
 import { STICKERS } from '../constants/sticker-constants';
-import { useState } from 'react';
-import type { StickerSelection } from '../constants/diary-constants';
+import { useContext, useState } from 'react';
+import { type StickerSelection } from '../constants/diary-constants';
+import { DiaryStateContext } from '../App';
 
-const NewSticker = () => {
+const EditSticker = () => {
     const nav = useNavigate();
+    const params = useParams();
     const location = useLocation();
 
-    const { date, stickers: savedStickers, content: savedContent } = location.state || {};
+    const diaryList = useContext(DiaryStateContext);
+    const originDiary = location.state?.diaryData || diaryList?.find((d) => d.id === Number(params.id));
 
     const navigateBack = () => {
-        nav('/', { replace: true, state: { pivotDate: date } });
+        nav('/', { replace: true, state: { pivotDate: originDiary.date } });
     };
 
     const [selections, setSelections] = useState<StickerSelection>(() => {
-        // 초기값 모두 -1로 설정
         const baseState = Object.fromEntries(STICKERS.map((s) => [s.key, -1]));
 
-        // 만약 되돌리기로 넘어온 상태라면 저장된 데이터가 있다면 덮어쓰기
-        if (savedStickers) {
-            return { ...baseState, ...savedStickers };
-        }
-        return baseState;
+        const targetStickers = location.state?.stickers || originDiary?.stickers;
+
+        return targetStickers ? { ...baseState, ...targetStickers } : baseState;
     });
 
     const handleSelect = (key: string, value: number) => {
-        //  덮어쓰기 됨
-        setSelections((prev) => ({
-            ...prev,
-            [key]: value,
-        }));
+        setSelections((prev) => ({ ...prev, [key]: value }));
     };
 
     const navigateNext = () => {
-        if (!isAnySelected) return;
-
-        // sticker에서 id: -1 인거는 삭제하고 있는것만
         const filteredStickers = Object.fromEntries(Object.entries(selections).filter(([_, value]) => value !== -1));
 
-        nav('/new2', {
+        nav(`/edit2/${params.id}`, {
             state: {
-                date,
+                ...originDiary,
                 stickers: filteredStickers,
-                content: savedContent,
+                content: location.state?.content ?? originDiary?.content,
             },
         });
     };
-
     // bottomButton 로직임 -1인게 하나라도 있느면 true
     const isAnySelected = Object.values(selections).some((value) => value !== -1);
 
@@ -79,4 +71,4 @@ const NewSticker = () => {
     );
 };
 
-export default NewSticker;
+export default EditSticker;

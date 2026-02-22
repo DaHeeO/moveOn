@@ -14,12 +14,11 @@ const Calendar = () => {
     const location = useLocation();
 
     const handleDiaryAction = () => {
-        // if (selectedDiary) {
-        //     nav(`/edit/${selectedDiary.id}`, { state: { diaryData: selectedDiary } });
-        // } else {
-        //     nav('/new1', { state: { date: pivotDate } });
-        // }
-        nav('/new1', { state: { date: pivotDate } });
+        if (selectedDiary) {
+            nav(`/edit1/${selectedDiary.id}`, { state: { diaryData: selectedDiary } });
+        } else {
+            nav('/new1', { state: { date: pivotDate } });
+        }
     };
 
     const data = useContext(DiaryStateContext);
