@@ -11,15 +11,22 @@ const NewSticker = () => {
     const nav = useNavigate();
     const location = useLocation();
     const { date } = location.state || {};
+    const savedStickers = location.state?.stickers;
 
     const navigateBack = () => {
-        nav(-1);
+        nav('/');
     };
 
-    // 초기값 모두 -1로 설정
-    const [selections, setSelections] = useState<StickerSelection>(() =>
-        Object.fromEntries(STICKERS.map((s) => [s.key, -1])),
-    );
+    const [selections, setSelections] = useState<StickerSelection>(() => {
+        // 초기값 모두 -1로 설정
+        const baseState = Object.fromEntries(STICKERS.map((s) => [s.key, -1]));
+
+        // 만약 되돌리기로 넘어온 상태라면 저장된 데이터가 있다면 덮어쓰기
+        if (savedStickers) {
+            return { ...baseState, ...savedStickers };
+        }
+        return baseState;
+    });
 
     const handleSelect = (key: string, value: number) => {
         //  덮어쓰기 됨

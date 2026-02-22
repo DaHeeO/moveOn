@@ -54,6 +54,13 @@
 
 .content-wrapper > p {
     margin-bottom: 32px;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+.diary-content {
+    color: black;
+    white-space: pre-wrap;
+    word-break: break-all;
 }
 
 .icon-div-wrapper {

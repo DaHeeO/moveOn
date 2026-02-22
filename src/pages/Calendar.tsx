@@ -5,12 +5,13 @@ import CalendarBoard from '../components/calendar/CalendarBoard';
 import CalendarHeader from '../components/calendar/CalendarHeader';
 import DiaryPreview from '../components/calendar/DiaryPreview';
 import BottomButton from '../components/common/BottomButton';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CalendarCategory from '../components/calendar/CalendarCategory';
 import type { CategoryKey } from '../constants/category-constants';
 
 const Calendar = () => {
     const nav = useNavigate();
+    const location = useLocation();
 
     const handleDiaryAction = () => {
         // if (selectedDiary) {
@@ -21,7 +22,14 @@ const Calendar = () => {
         nav('/new1', { state: { date: pivotDate } });
     };
     const data = useContext(DiaryStateContext);
-    const [pivotDate, setPivotDate] = useState(getFormattedDate(new Date()));
+
+    const [pivotDate, setPivotDate] = useState(() => {
+        // 만약에 수정이나 새로 다이어리 생성하고 넘어온거랴면 pivotDate 들어있음
+        const pivotDate = location.state?.pivotDate;
+
+        // 선택된거 있으면 PivotDate 아니면 오늘날짜
+        return pivotDate || getFormattedDate(new Date());
+    });
     // header 부분에서 관리하는 년, 월 을 담은 viewMonth
     const viewMonth = pivotDate.slice(0, 7);
     const todayRef = useRef(new Date());

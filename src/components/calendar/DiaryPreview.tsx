@@ -72,7 +72,7 @@ const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
                         );
                     })}
                 </div>
-                <p style={{ color: 'black' }}> {selectedDiary.content}</p>
+                <p className="diary-content"> {selectedDiary.content}</p>
             </div>
         </div>
     );

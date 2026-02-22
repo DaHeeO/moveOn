@@ -17,11 +17,17 @@ const NewContent = () => {
 
     const handleCreate = () => {
         onCreate(date, stickers, content);
-        nav('/', { replace: true });
+        nav('/', { replace: true, state: { pivotDate: date } });
     };
 
     const navigateBack = () => {
-        nav(-1);
+        // 이전으로 되돌릴때 그전에 선택했던 스티커 다시 전달
+        nav('/new1', {
+            state: {
+                date,
+                stickers,
+            },
+        });
     };
 
     return (
@@ -34,7 +40,7 @@ const NewContent = () => {
                 }
                 navigateBack={navigateBack}
             />
-            <NewContentBox />
+            <NewContentBox content={content} setContent={setContent} />
             <BottomButton focus={true} label={'기록 완료'} onClick={handleCreate} />
         </div>
     );
