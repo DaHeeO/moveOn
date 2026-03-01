@@ -45,11 +45,11 @@ const Calendar = () => {
     const monthlyDairy = useMemo(() => {
         if (!data) return [];
         return getMonthlyData(data, viewMonth);
-    }, [viewMonth]);
+    }, [data, viewMonth]);
 
     const selectedDiary = useMemo(() => {
         return getSelectedDiary(monthlyDairy, pivotDate);
-    }, [pivotDate]);
+    }, [monthlyDairy, pivotDate]);
 
     const [selectedCategory, setSelectedCategory] = useState<CategoryKey>('feeling');
 

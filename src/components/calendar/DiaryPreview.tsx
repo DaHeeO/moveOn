@@ -2,6 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import type { DiaryData } from '../../constants/diary-constants';
 import { STICKERS } from '../../constants/sticker-constants';
 import './DiaryPreview.css';
+import { ModalWrapper, useModal } from '../../hooks/useModal';
+import MinusVertical from '../../assets/MinusVertical';
+import { useContext } from 'react';
+import { DiaryDispatchContext } from '../../App';
 
 interface Props {
     selectedDiary?: DiaryData;
@@ -12,6 +16,17 @@ const DAYS = ['일요일', '월요일', '화요일', '수요일', '목요일', '
 
 const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
     const nav = useNavigate();
+    const { onDelete } = useContext(DiaryDispatchContext)!;
+
+    const { isOpen, open, close } = useModal();
+
+    const handleModalOpen = () => {
+        open();
+    };
+
+    const handleModalClose = () => {
+        close();
+    };
 
     const curDate = new Date(pivotDate);
     const month = curDate.getMonth() + 1;
@@ -23,6 +38,14 @@ const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
         if (selectedDiary) {
             nav(`/edit1/${selectedDiary.id}`, { state: { diaryData: selectedDiary } });
         }
+    };
+
+    const handleDelete = () => {
+        if (!selectedDiary) return;
+
+        onDelete(Number(selectedDiary.id));
+
+        close();
     };
 
     if (!selectedDiary) {
@@ -46,7 +69,7 @@ const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
                 <div>{formattedDate}</div>
                 <div className="diary-button">
                     <div onClick={navigateToEditPage}> 수정</div>
-                    <div> 삭제</div>
+                    <div onClick={handleModalOpen}> 삭제</div>
                 </div>
             </div>
             <div className="content-wrapper">
@@ -83,6 +106,23 @@ const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
                 </div>
                 <p className="diary-content"> {selectedDiary.content}</p>
             </div>
+            <ModalWrapper isOpen={isOpen}>
+                <div className="modal-alert-overlay" onClick={handleModalClose}>
+                    <div className={'modal-alert-center-background'} onClick={(e) => e.stopPropagation()}>
+                        <div className="alert-sheet-overlay">
+                            <div className="alert-sheet-content">
+                                <p>일기를 삭제하시겠어요?</p>
+                                <span>작성한 스티커 및 모든 내용이 삭제됩니다</span>
+                            </div>
+                            <div className="alert-sheet-select">
+                                <button onClick={handleModalClose}>아니요</button>
+                                <MinusVertical />
+                                <button onClick={handleDelete}>네. 삭제할래요</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ModalWrapper>
         </div>
     );
 };
