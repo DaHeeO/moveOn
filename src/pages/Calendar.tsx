@@ -15,9 +15,9 @@ const Calendar = () => {
 
     const handleDiaryAction = () => {
         if (selectedDiary) {
-            nav(`/edit1/${selectedDiary.id}`, { state: { diaryData: selectedDiary } });
+            nav(`/edit1/${selectedDiary.id}`, { state: { diaryData: selectedDiary, category: selectedCategory } });
         } else {
-            nav('/new1', { state: { date: pivotDate } });
+            nav('/new1', { state: { date: pivotDate, category: selectedCategory } });
         }
     };
 
@@ -29,6 +29,12 @@ const Calendar = () => {
 
         // 선택된거 있으면 PivotDate 아니면 오늘날짜
         return pivotDate || getFormattedDate(new Date());
+    });
+
+    const [selectedCategory, setSelectedCategory] = useState<CategoryKey>(() => {
+        const selectedCategory = location?.state?.category;
+
+        return selectedCategory || 'feeling';
     });
 
     // state 안 비워져서 이렇게 두는거
@@ -50,8 +56,6 @@ const Calendar = () => {
     const selectedDiary = useMemo(() => {
         return getSelectedDiary(monthlyDairy, pivotDate);
     }, [monthlyDairy, pivotDate]);
-
-    const [selectedCategory, setSelectedCategory] = useState<CategoryKey>('feeling');
 
     // CalendarHeader에서 관리하는 로직 -> 년, 월 만 변경
     const updateViewMonth = (nextMonth: string) => {
@@ -93,7 +97,7 @@ const Calendar = () => {
                 monthlyDairy={monthlyDairy}
                 selectedCategory={selectedCategory}
             />
-            <DiaryPreview selectedDiary={selectedDiary} pivotDate={pivotDate} />
+            <DiaryPreview selectedDiary={selectedDiary} pivotDate={pivotDate} selectedCategory={selectedCategory} />
             <BottomButton
                 focus={true}
                 label={selectedDiary?.id ? '일기 수정' : '일기 쓰기'}

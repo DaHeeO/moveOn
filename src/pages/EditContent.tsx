@@ -4,6 +4,7 @@ import NewContentBox from '../components/new/NewContentBox';
 import BottomButton from '../components/common/BottomButton';
 import { useContext, useState } from 'react';
 import { DiaryDispatchContext } from '../App';
+import { toast } from '../core/toast';
 
 const EditContent = () => {
     const nav = useNavigate();
@@ -18,7 +19,8 @@ const EditContent = () => {
 
     const handleEdit = () => {
         onUpdate(Number(params.id), diaryData.date, diaryData.stickers, content);
-        nav('/', { replace: true, state: { pivotDate: diaryData.date } });
+        nav('/', { replace: true, state: { pivotDate: diaryData.date, category: diaryData.category } });
+        toast('일기가 수정되었습니다');
     };
 
     const navigateBack = () => {

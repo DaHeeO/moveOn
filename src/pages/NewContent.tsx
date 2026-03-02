@@ -4,6 +4,7 @@ import NewContentBox from '../components/new/NewContentBox';
 import BottomButton from '../components/common/BottomButton';
 import { useContext, useState } from 'react';
 import { DiaryDispatchContext } from '../App';
+import { toast } from '../core/toast';
 
 const NewContent = () => {
     const nav = useNavigate();
@@ -11,13 +12,14 @@ const NewContent = () => {
 
     const { onCreate } = useContext(DiaryDispatchContext)!;
 
-    const { date, stickers, content: incomingContent } = location.state || {};
+    const { date, stickers, content: incomingContent, category } = location.state || {};
 
     const [content, setContent] = useState(incomingContent || '');
 
     const handleCreate = () => {
         onCreate(date, stickers, content);
-        nav('/', { replace: true, state: { pivotDate: date } });
+        nav('/', { replace: true, state: { pivotDate: date, category: category } });
+        toast('일기가 생성되었습니다');
     };
 
     const navigateBack = () => {
@@ -27,6 +29,7 @@ const NewContent = () => {
                 date,
                 stickers,
                 content,
+                category,
             },
         });
     };

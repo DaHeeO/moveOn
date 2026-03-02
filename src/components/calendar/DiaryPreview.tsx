@@ -6,15 +6,18 @@ import { ModalWrapper, useModal } from '../../hooks/useModal';
 import MinusVertical from '../../assets/MinusVertical';
 import { useContext } from 'react';
 import { DiaryDispatchContext } from '../../App';
+import { toast } from '../../core/toast';
+import type { CategoryKey } from '../../constants/category-constants';
 
 interface Props {
     selectedDiary?: DiaryData;
     pivotDate: string;
+    selectedCategory: CategoryKey;
 }
 
 const DAYS = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
 
-const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
+const DiaryPreview = ({ selectedDiary, pivotDate, selectedCategory }: Props) => {
     const nav = useNavigate();
     const { onDelete } = useContext(DiaryDispatchContext)!;
 
@@ -36,16 +39,15 @@ const DiaryPreview = ({ selectedDiary, pivotDate }: Props) => {
 
     const navigateToEditPage = () => {
         if (selectedDiary) {
-            nav(`/edit1/${selectedDiary.id}`, { state: { diaryData: selectedDiary } });
+            nav(`/edit1/${selectedDiary.id}`, { state: { diaryData: selectedDiary, category: selectedCategory } });
         }
     };
 
     const handleDelete = () => {
         if (!selectedDiary) return;
-
         onDelete(Number(selectedDiary.id));
-
         close();
+        toast('삭제가 완료되었습니다');
     };
 
     if (!selectedDiary) {

@@ -11,10 +11,10 @@ const NewSticker = () => {
     const nav = useNavigate();
     const location = useLocation();
 
-    const { date, stickers: savedStickers, content: savedContent } = location.state || {};
+    const { date, stickers: savedStickers, content: savedContent, category: selectedCategory } = location.state || {};
 
     const navigateBack = () => {
-        nav('/', { replace: true, state: { pivotDate: date } });
+        nav('/', { replace: true, state: { pivotDate: date, category: selectedCategory } });
     };
 
     const [selections, setSelections] = useState<StickerSelection>(() => {
@@ -47,6 +47,7 @@ const NewSticker = () => {
                 date,
                 stickers: filteredStickers,
                 content: savedContent,
+                category: selectedCategory,
             },
         });
     };

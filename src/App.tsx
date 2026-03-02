@@ -7,6 +7,7 @@ import NewSticker from './pages/NewSticker';
 import NewContent from './pages/NewContent';
 import EditSticker from './pages/EditSticker';
 import EditContent from './pages/EditContent';
+import { ToastContainer } from './components/common/ToastContainer';
 
 const mockData = DIARY_TEMP_DATA;
 
@@ -78,6 +79,7 @@ function App() {
                     </Routes>
                 </DiaryDispatchContext.Provider>
             </DiaryStateContext.Provider>
+            <ToastContainer />
         </>
     );
 }

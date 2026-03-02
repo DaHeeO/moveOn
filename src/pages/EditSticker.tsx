@@ -17,7 +17,13 @@ const EditSticker = () => {
     const originDiary = location.state?.diaryData || diaryList?.find((d) => d.id === Number(params.id));
 
     const navigateBack = () => {
-        nav('/', { replace: true, state: { pivotDate: originDiary.date } });
+        nav('/', {
+            replace: true,
+            state: {
+                pivotDate: originDiary.date,
+                category: location.state?.category || 'feeling',
+            },
+        });
     };
 
     const [selections, setSelections] = useState<StickerSelection>(() => {
@@ -40,6 +46,7 @@ const EditSticker = () => {
                 ...originDiary,
                 stickers: filteredStickers,
                 content: location.state?.content ?? originDiary?.content,
+                category: location.state?.category ?? 'feeling',
             },
         });
     };
