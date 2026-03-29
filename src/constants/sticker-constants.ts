@@ -6,15 +6,22 @@ import {
     SLEEP_LIST,
     WORKOUT_LIST,
     type CategoryData,
-    type CategoryKey,
+    type MetricCategoryKey,
+    type StickerCategoryKey,
 } from './category-constants';
 
 export interface StickerTypeData {
-    key: CategoryKey;
+    key: StickerCategoryKey;
     stickerTypeName: string;
-    iconSrc: string;
+    iconSrc?: string;
     color?: string;
     stickers: CategoryData[];
+}
+
+export interface MetricTypeData {
+    key: MetricCategoryKey;
+    stickerTypeName: string;
+    color: string;
 }
 
 export const STICKERS: StickerTypeData[] = [
@@ -56,5 +63,28 @@ export const STICKERS: StickerTypeData[] = [
         stickerTypeName: '생리',
         iconSrc: '/src/assets/period/period1.png',
         stickers: PERIOD_LIST,
+    },
+];
+
+export const METRICS: MetricTypeData[] = [
+    {
+        key: 'ate',
+        stickerTypeName: '먹었어요',
+        color: '#43D778',
+    },
+    {
+        key: 'burn',
+        stickerTypeName: '태웠어요',
+        color: '#FA5064',
+    },
+    {
+        key: 'weight',
+        stickerTypeName: '몸무게',
+        color: '#FFC7AF',
+    },
+    {
+        key: 'water',
+        stickerTypeName: '물 섭취',
+        color: '#BAD4E6',
     },
 ];

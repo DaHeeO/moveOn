@@ -1,4 +1,4 @@
-.CalendarBoard {
+.CalendarStickerBoard {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -12,14 +12,14 @@
     margin-bottom: 30px;
 }
 
-.CalendarBoard .days-wrapper {
+.CalendarStickerBoard .days-wrapper {
     text-align: center;
     color: var(--text-gray);
     font-size: 16px;
     gap: 10px;
 }
 
-.CalendarBoard .calendar-grid {
+.CalendarStickerBoard .calendar-grid {
     text-align: center;
     gap: 20px 10px;
 }

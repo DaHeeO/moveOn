@@ -42,7 +42,7 @@ const NewSticker = () => {
         // sticker에서 id: -1 인거는 삭제하고 있는것만
         const filteredStickers = Object.fromEntries(Object.entries(selections).filter(([_, value]) => value !== -1));
 
-        nav('/new2', {
+        nav('/diary/new2', {
             state: {
                 date,
                 stickers: filteredStickers,

@@ -6,7 +6,18 @@ export interface CategoryData {
     srcGray: string;
     srcException?: string;
 }
-export type CategoryKey = 'feeling' | 'diet' | 'workout' | 'poop' | 'sleep' | 'period';
+
+export type ViewMode = 'metric' | 'sticker';
+
+export type StickerCategoryKey = 'feeling' | 'diet' | 'workout' | 'poop' | 'sleep' | 'period';
+export type MetricCategoryKey = 'ate' | 'burn' | 'weight' | 'water';
+
+export type CategoryKey = StickerCategoryKey | MetricCategoryKey;
+
+export const DEFAULT_CATEGORY: Record<ViewMode, CategoryKey> = {
+    sticker: 'feeling',
+    metric: 'ate',
+};
 
 export const FEELING_LIST: CategoryData[] = [
     {

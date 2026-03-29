@@ -1,17 +1,25 @@
 import { useEffect, useRef } from 'react';
-import type { CategoryKey } from '../../constants/category-constants';
-import { STICKERS } from '../../constants/sticker-constants';
+import type { CategoryKey, ViewMode } from '../../constants/category-constants';
+import { STICKERS, METRICS } from '../../constants/sticker-constants';
 import './CalendarCategory.css';
 
 interface Props {
+    viewMode: ViewMode;
     selectedCategory: CategoryKey;
     updateCategory: (category: CategoryKey) => void;
 }
 
-const CalendarCategory = ({ selectedCategory, updateCategory }: Props) => {
+const CalendarCategory = ({ viewMode, selectedCategory, updateCategory }: Props) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const categoryRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
     const isFirstRender = useRef(true);
+
+    const displayData = (viewMode === 'sticker' ? STICKERS : METRICS).map((item) => ({
+        key: item.key,
+        name: item.stickerTypeName,
+        color: item.color,
+        icon: 'iconSrc' in item ? item.iconSrc : null,
+    }));
 
     useEffect(() => {
         const container = scrollContainerRef.current;
@@ -31,27 +39,30 @@ const CalendarCategory = ({ selectedCategory, updateCategory }: Props) => {
 
     return (
         <div className="CalendarCategory" ref={scrollContainerRef}>
-            {STICKERS.map((sticker) => (
+            {displayData.map((item) => (
                 <div
-                    className={`CalendarCategoryWrapper ${selectedCategory === sticker.key ? 'selected' : ''}`}
-                    key={sticker.key}
-                    onClick={() => updateCategory(sticker.key)}
+                    className={`CalendarCategoryWrapper ${selectedCategory === item.key ? 'selected' : ''}`}
+                    key={item.key}
+                    onClick={() => updateCategory(item.key)}
                     ref={(el) => {
-                        categoryRefs.current[sticker.key] = el;
+                        categoryRefs.current[item.key] = el;
                     }}
                 >
-                    <div
-                        key={sticker.key}
-                        className="CalendarCategoryIconWrapper"
-                        style={{
-                            backgroundColor: sticker.color,
-                        }}
-                    >
-                        <img src={sticker.iconSrc} />
+                    <div className="CalendarCategoryIconWrapper" style={{ backgroundColor: item.color }}>
+                        {item.icon ? (
+                            <img src={item.icon} alt="" />
+                        ) : (
+                            <div
+                                style={{
+                                    width: '16px',
+                                    height: '16px',
+                                    backgroundColor: item.color,
+                                    borderRadius: '50%',
+                                }}
+                            />
+                        )}
                     </div>
-                    <p className={`CategoryIconName ${selectedCategory === sticker.key ? 'selected' : ''}`}>
-                        {sticker.stickerTypeName}
-                    </p>
+                    <p className={`CategoryIconName ${selectedCategory === item.key ? 'selected' : ''}`}>{item.name}</p>
                 </div>
             ))}
         </div>

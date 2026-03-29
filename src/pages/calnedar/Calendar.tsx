@@ -1,13 +1,21 @@
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { DiaryStateContext } from '../../App';
 import { getFormattedDate, getMonthlyData, getSelectedDiary } from '../../utils/diaryFileter';
-import CalendarBoard from '../../components/calendar/CalendarBoard';
+import CalendarHeaderControl from '../../components/calendar/CalendarHeaderControl';
 import CalendarHeader from '../../components/calendar/CalendarHeader';
+import CalendarStickerBoard from '../../components/calendar/CalendarStickerBoard';
 import DiaryPreview from '../../components/calendar/DiaryPreview';
 import BottomButton from '../../components/common/BottomButton';
 import { useLocation, useNavigate } from 'react-router-dom';
+import {
+    DEFAULT_CATEGORY,
+    type CategoryKey,
+    type MetricCategoryKey,
+    type StickerCategoryKey,
+    type ViewMode,
+} from '../../constants/category-constants';
+import CalendarMetricBoard from '../../components/calendar/CalendarMetricBoard';
 import CalendarCategory from '../../components/calendar/CalendarCategory';
-import type { CategoryKey } from '../../constants/category-constants';
 
 const Calendar = () => {
     const nav = useNavigate();
@@ -34,9 +42,9 @@ const Calendar = () => {
     });
 
     const [selectedCategory, setSelectedCategory] = useState<CategoryKey>(() => {
-        const selectedCategory = location?.state?.category;
+        const passedCategory = location?.state?.category as CategoryKey;
 
-        return selectedCategory || 'feeling';
+        return passedCategory || DEFAULT_CATEGORY.metric;
     });
 
     // state 안 비워져서 이렇게 두는거
@@ -83,22 +91,44 @@ const Calendar = () => {
         setSelectedCategory(category);
     };
 
+    const [viewMode, setViewMode] = useState<ViewMode>('metric');
+
+    const handleViewModeChange = (mode: ViewMode) => {
+        setViewMode(mode);
+        // 모드 전환 시 각 모드의 기본 카테고리로 세팅
+        setSelectedCategory(DEFAULT_CATEGORY[mode]);
+    };
+
     return (
         <div style={{ display: 'flex', flexDirection: 'column', flex: 1, width: '100%' }}>
-            <CalendarHeader
-                todayRef={todayRef.current}
+            <CalendarHeader todayRef={todayRef.current} pivotDate={pivotDate} updateDateToToday={updateDateToToday} />
+
+            <CalendarHeaderControl
+                viewMode={viewMode}
+                onViewModeChange={handleViewModeChange}
                 pivotDate={pivotDate}
                 updateViewMonth={updateViewMonth}
-                updateDateToToday={updateDateToToday}
             />
-            <CalendarCategory selectedCategory={selectedCategory} updateCategory={updateCategory} />
-            <CalendarBoard
-                todayRef={todayRef.current}
-                pivotDate={pivotDate}
-                updatePivotDate={updatePivotDate}
-                monthlyDairy={monthlyDairy}
-                selectedCategory={selectedCategory}
-            />
+            <CalendarCategory viewMode={viewMode} selectedCategory={selectedCategory} updateCategory={updateCategory} />
+            {viewMode === 'metric' ? (
+                <CalendarMetricBoard
+                    key="metric-board"
+                    todayRef={todayRef.current}
+                    pivotDate={pivotDate}
+                    updatePivotDate={updatePivotDate}
+                    monthlyDairy={monthlyDairy}
+                    selectedCategory={selectedCategory as MetricCategoryKey}
+                />
+            ) : (
+                <CalendarStickerBoard
+                    todayRef={todayRef.current}
+                    pivotDate={pivotDate}
+                    updatePivotDate={updatePivotDate}
+                    monthlyDairy={monthlyDairy}
+                    selectedCategory={selectedCategory as StickerCategoryKey}
+                />
+            )}
+
             <DiaryPreview selectedDiary={selectedDiary} pivotDate={pivotDate} selectedCategory={selectedCategory} />
             <BottomButton
                 focus={true}

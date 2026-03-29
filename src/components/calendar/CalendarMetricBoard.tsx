@@ -1,7 +1,6 @@
-import type { CategoryKey } from '../../constants/category-constants';
+import type { MetricCategoryKey } from '../../constants/category-constants';
 import type { DiaryData } from '../../constants/diary-constants';
-import { STICKERS } from '../../constants/sticker-constants';
-import './CalendarBoard.css';
+import './CalendarMetricBoard.css';
 import CalendarItem from './CalendarItem';
 
 interface Props {
@@ -9,10 +8,10 @@ interface Props {
     pivotDate: string;
     updatePivotDate: (selectedDate: number) => void;
     monthlyDairy: DiaryData[];
-    selectedCategory: CategoryKey;
+    selectedCategory: MetricCategoryKey;
 }
 
-const CalendarBoard = ({ todayRef, pivotDate, updatePivotDate, monthlyDairy, selectedCategory }: Props) => {
+const CalendarMetricBoard = ({ todayRef, pivotDate, updatePivotDate, monthlyDairy, selectedCategory }: Props) => {
     const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 
     const [year, month, currentDate] = pivotDate.split('-').map(Number);
@@ -40,10 +39,9 @@ const CalendarBoard = ({ todayRef, pivotDate, updatePivotDate, monthlyDairy, sel
     };
 
     // 현재 카테고리랑 같은 스티커 렌더링
-    const stickers = STICKERS.find((s) => s.key === selectedCategory)!;
 
     return (
-        <div className="CalendarBoard">
+        <div className="CalendarMetricBoard">
             <div className="days-wrapper">
                 {daysOfWeek.map((day) => {
                     return <div key={day}>{day}</div>;
@@ -57,13 +55,10 @@ const CalendarBoard = ({ todayRef, pivotDate, updatePivotDate, monthlyDairy, sel
                     });
 
                     // 여기다가 로직 처리를 해야함 category 별로
-                    const currentStickerId = dayData?.stickers[selectedCategory];
-                    const sticker = stickers.stickers.find((s) => s.id === currentStickerId);
                     return (
                         <CalendarItem
                             key={day}
                             day={day}
-                            sticker={sticker}
                             isToday={
                                 year === todayRef.getFullYear() &&
                                 month === todayRef.getMonth() + 1 &&
@@ -79,4 +74,4 @@ const CalendarBoard = ({ todayRef, pivotDate, updatePivotDate, monthlyDairy, sel
     );
 };
 
-export default CalendarBoard;
+export default CalendarMetricBoard;
