@@ -39,7 +39,9 @@ const DiaryPreview = ({ selectedDiary, pivotDate, selectedCategory }: Props) => 
 
     const navigateToEditPage = () => {
         if (selectedDiary) {
-            nav(`/edit1/${selectedDiary.id}`, { state: { diaryData: selectedDiary, category: selectedCategory } });
+            nav(`/diary/edit1/${selectedDiary.id}`, {
+                state: { diaryData: selectedDiary, category: selectedCategory },
+            });
         }
     };
 

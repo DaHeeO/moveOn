@@ -1,13 +1,13 @@
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { DiaryStateContext } from '../App';
-import { getFormattedDate, getMonthlyData, getSelectedDiary } from '../utils/diaryFileter';
-import CalendarBoard from '../components/calendar/CalendarBoard';
-import CalendarHeader from '../components/calendar/CalendarHeader';
-import DiaryPreview from '../components/calendar/DiaryPreview';
-import BottomButton from '../components/common/BottomButton';
+import { DiaryStateContext } from '../../App';
+import { getFormattedDate, getMonthlyData, getSelectedDiary } from '../../utils/diaryFileter';
+import CalendarBoard from '../../components/calendar/CalendarBoard';
+import CalendarHeader from '../../components/calendar/CalendarHeader';
+import DiaryPreview from '../../components/calendar/DiaryPreview';
+import BottomButton from '../../components/common/BottomButton';
 import { useLocation, useNavigate } from 'react-router-dom';
-import CalendarCategory from '../components/calendar/CalendarCategory';
-import type { CategoryKey } from '../constants/category-constants';
+import CalendarCategory from '../../components/calendar/CalendarCategory';
+import type { CategoryKey } from '../../constants/category-constants';
 
 const Calendar = () => {
     const nav = useNavigate();
@@ -15,9 +15,11 @@ const Calendar = () => {
 
     const handleDiaryAction = () => {
         if (selectedDiary) {
-            nav(`/edit1/${selectedDiary.id}`, { state: { diaryData: selectedDiary, category: selectedCategory } });
+            nav(`/diary/edit1/${selectedDiary.id}`, {
+                state: { diaryData: selectedDiary, category: selectedCategory },
+            });
         } else {
-            nav('/new1', { state: { date: pivotDate, category: selectedCategory } });
+            nav('/diary/new1', { state: { date: pivotDate, category: selectedCategory } });
         }
     };
 

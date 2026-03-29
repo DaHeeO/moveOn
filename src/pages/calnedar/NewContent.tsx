@@ -1,10 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import NewHeader from '../components/new/NewHeader';
-import NewContentBox from '../components/new/NewContentBox';
-import BottomButton from '../components/common/BottomButton';
+import NewHeader from '../../components/new/NewHeader';
+import NewContentBox from '../../components/new/NewContentBox';
+import BottomButton from '../../components/common/BottomButton';
 import { useContext, useState } from 'react';
-import { DiaryDispatchContext } from '../App';
-import { toast } from '../core/toast';
+import { DiaryDispatchContext } from '../../App';
+import { toast } from '../../core/toast';
 
 const NewContent = () => {
     const nav = useNavigate();
@@ -18,13 +18,13 @@ const NewContent = () => {
 
     const handleCreate = () => {
         onCreate(date, stickers, content);
-        nav('/', { replace: true, state: { pivotDate: date, category: category } });
+        nav('/diary', { replace: true, state: { pivotDate: date, category: category } });
         toast('일기가 생성되었습니다');
     };
 
     const navigateBack = () => {
         // 이전으로 되돌릴때 그전에 선택했던 스티커 다시 전달
-        nav('/new1', {
+        nav('/diary/new1', {
             state: {
                 date,
                 stickers,

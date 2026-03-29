@@ -1,13 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Calendar from './pages/Calendar';
+import Calendar from './pages/calnedar/Calendar';
 import { type DiaryData, type StickerSelection, DIARY_TEMP_DATA } from './constants/diary-constants';
 import { createContext, useReducer, useRef } from 'react';
-import NewSticker from './pages/NewSticker';
-import NewContent from './pages/NewContent';
-import EditSticker from './pages/EditSticker';
-import EditContent from './pages/EditContent';
+import NewSticker from './pages/calnedar/NewSticker';
+import NewContent from './pages/calnedar/NewContent';
+import EditSticker from './pages/calnedar/EditSticker';
+import EditContent from './pages/calnedar/EditContent';
 import { ToastContainer } from './components/common/ToastContainer';
+import Home from './pages/Home';
 
 const mockData = DIARY_TEMP_DATA;
 
@@ -68,20 +69,47 @@ function App() {
 
     return (
         <>
-            <DiaryStateContext.Provider value={data}>
-                <DiaryDispatchContext.Provider value={{ onCreate, onDelete, onUpdate }}>
-                    <Routes>
-                        <Route path="/" element={<Calendar />} />
-                        <Route path="/new1" element={<NewSticker />} />
-                        <Route path="/new2" element={<NewContent />} />
-                        <Route path="/edit1/:id" element={<EditSticker />} />
-                        <Route path="/edit2/:id" element={<EditContent />} />
-                    </Routes>
-                </DiaryDispatchContext.Provider>
-            </DiaryStateContext.Provider>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route
+                    path="/diary/*"
+                    element={
+                        <DiaryStateContext.Provider value={data}>
+                            <DiaryDispatchContext.Provider value={{ onCreate, onDelete, onUpdate }}>
+                                <Routes>
+                                    <Route index element={<Calendar />} />
+                                    <Route path="new1" element={<NewSticker />} />
+                                    <Route path="new2" element={<NewContent />} />
+                                    <Route path="edit1/:id" element={<EditSticker />} />
+                                    <Route path="edit2/:id" element={<EditContent />} />
+                                </Routes>
+                            </DiaryDispatchContext.Provider>
+                        </DiaryStateContext.Provider>
+                    }
+                />
+            </Routes>
             <ToastContainer />
         </>
     );
 }
 
 export default App;
+
+//  <DiaryStateContext.Provider value={data}>
+//                 <DiaryDispatchContext.Provider value={{ onCreate, onDelete, onUpdate }}>
+//                     <Routes>
+//                         {/* 1. 새로운 메인 홈 페이지 */}
+//                         <Route path="/" element={<Home />} />
+
+//                         {/* 2. 다이어리 관련 기능을 /diary 경로로 그룹화 */}
+//                         <Route path="/diary">
+//                             <Route index element={<Calendar />} /> {/* /diary 접속 시 달력 표시 */}
+//                             <Route path="new1" element={<NewSticker />} />
+//                             <Route path="new2" element={<NewContent />} />
+//                             <Route path="edit1/:id" element={<EditSticker />} />
+//                             <Route path="edit2/:id" element={<EditContent />} />
+//                         </Route>
+//                     </Routes>
+//                 </DiaryDispatchContext.Provider>
+//             </DiaryStateContext.Provider>
+//             <ToastContainer />
